@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memento Tracer</title>
+  <link href="lib/css/fontawesome-all.css" rel="stylesheet">
+  <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+  <link href="lib/css/jquery-ui.css" rel="stylesheet">
+  <style type="text/css">
+  body {
+    width: 405px;
+    min-width: 405px;
+    min-height: 350px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-size: 13px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+  }
+  .w-10 {
+    width: 10%!important;
+  }
+  .w-20 {
+    width: 20%!important;
+  }
+  .w-30 {
+    width: 30%!important;
+  }
+  .w-40 {
+    width: 40%!important;
+  }
+  .w-60 {
+    width: 60%!important;
+  }
+  .w-70 {
+    width: 70%!important;
+  }
+  .w-80 {
+    width: 80%!important;
+  }
+  .w-90 {
+    width: 90%!important;
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+  }
+  .adjust-line-height {
+    line-height: 1.5;
+    font-size: 1.2rem;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  
+  <h5 class="pt-3">Event Trace for Starting URL:</h5>
+
+  <div id="url-traced" class="pb-3"></div>
+  
+  <div id="event_ui" class="row justify-content-end"></div>
+
+  <div id="download_modal_container" class="row"></div>
+
+    <div id="alert_placeholder" class="alert alert-success alert-dismissible d-none" role="alert" style="bottom: 100px; position: fixed;"></div>
+  <div class="footer">
+  <div class="btn-group justify-content-center" role="group">
+    <button class="btn btn-default btn-danger tracer-bg" id="start_over">Start Over</button>
+    
+    <button class="btn btn-default btn-primary tracer-bg" id="download_trace">Save Trace</button>
+
+    <!-- <button class="btn btn-default btn-success tracer-bg" id="copy_trace" title="Copy the steps in this trace to insert in as part of another trace.">Copy Trace</button> -->
+
+    
+  </div>
+  </div>
+</div>
+  
+  <script src="lib/js/jquery.min.js"></script>
+  <script src="lib/js/jquery-ui.js"></script>
+  <script src="lib/js/popper.min.js"></script>
+  <script src="lib/js/bootstrap.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

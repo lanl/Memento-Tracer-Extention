@@ -1,0 +1,88 @@
+{
+	"https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture": {
+		"trace": {
+			"userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3431.0 Safari/537.36",
+			"resourceURL": "https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture",
+			"name": "My slideshare trace",
+			"uriPattern": "https://www.slideshare.net/[hvdsomp]/[paul-evan-peters-lecture]",
+
+			"actions": {
+				"azxdfds22d": {
+					"id": "azxdfds22d",
+					"name": "Starting Resource",
+					"uriPattern": "https://www.slideshare.net/[hvdsomp]/[paul-evan-peters-lecture]",
+					"selectors": [
+            {
+              "selectorType": "CSSSelector",
+              "selector"
+            }
+          ],
+					"selectorId": [],
+					"selectorType": [],
+					"actionName": "load",
+					"locationURL": "https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture",
+					"traceURL": null,
+					"actionApply": "once",
+					"repeat": 0,
+					"parent": "azxdfds22d"
+				},
+				"bgsjlwp335n": {
+					"id": "bgsjlwp335n",
+					"name": "Next Slide",
+					"uriPattern": null,
+					"selectorId": ["div.j-next-btn.arrow-right"],
+					"selectorType": ["CSSSelector"],
+					"actionName": "click",
+					"locationURL": "https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture",
+					"traceURL": null,
+					"actionApply": "once",
+					"repeat": {
+						"until": {
+							"selectorType": ["locationURL"],
+							"selectorCondition": "changes",
+							"selectorId": []
+						}
+					},
+					"parent": "azxdfds22d"
+				},
+				"7654bfdgbnjk": {
+					"id": "7654bfdgbnjk",
+					"name": "Next Slide",
+					"uriPattern": null,
+					"selectorId": ["li.j-related-item a:first-of-type"],
+					"selectorType": ["CSSSelector"],
+					"actionName": "click",
+					"locationURL": "https://www.slideshare.net/hvdsomp/perseverance-on-persistence",
+					"traceURL": null,
+					"actionApply": "once",
+					"repeat": {
+						"until": {
+							"selectorType": ["resourceCount"],
+							"selectorCondition": "equals",
+							"selectorId": ["5"]
+						}
+					},
+					"parent": "bgsjlwp335n"
+				},
+				"hjs33fj0um": {
+					"id": "hjs33fj0um",
+					"name": "Stats Tab",
+					"uriPattern": null,
+					"selectorId": ["a.j-stats-tab"],
+					"selectorType": ["CSSSelector"],
+					"actionName": "click",
+					"locationURL": "https://www.slideshare.net/hvdsomp/perseverance-on-persistence",
+					"traceURL": null,
+					"actionApply": "once",
+					"repeat": 0,
+					"parent": "7654bfdgbnjk"
+				}
+			}
+		},
+
+		"locationURLs": {
+			"https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture": "azxdfds22d",
+			"https://www.slideshare.net/hvdsomp/perseverance-on-persistence": "7654bfdgbnjk"
+		}
+	}
+}

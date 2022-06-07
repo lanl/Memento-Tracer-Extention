@@ -1,0 +1,58 @@
+{
+	"userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3431.0 Safari/537.36",
+	"resourceURL": "https://github.com/gorilla/mux",
+
+	"actions": {
+		"id": "azxdfds22d",
+		"name": "Starting Resource",
+		"uriPattern": "https://github.com/[gorilla]/[mux]",
+		"selectorId": [],
+		"selectorType": [],
+		"actionName": "load",
+		"locationURL": "https://github.com/gorilla/mux",
+		"traceURL": null,
+		"actionApply": "once",
+		"repeat": 0,
+	
+		"children": [
+			{		
+				"id": "bgsjlwp335n",
+				"name": "All files in the repo",
+				"action": {
+					"uriPattern": null,
+					"selectorId": ["table.files.js-navigation-container.js-active-navigation-container a"],
+					"selectorType": ["CSSSelector"],
+					"actionName": "click",
+					"locationURL": "https://github.com/gorilla/mux",
+					"actionApply": "once",
+					"repeat": 0
+				},
+				"actionURL": null
+			},
+			{
+				"id": "p3nbt552nn",
+				"name": "Download & Clone",
+				"uriPattern": null,
+				"selectorId": ["summary.btn.btn-sm.btn-primary"],
+				"selectorType": ["CSSSelector"],
+				"actionName": "click",
+				"locationURL": "https://github.com/gorilla/mux",
+				"traceURL": null,
+				"actionApply": "once",
+				"repeat": 0
+			},
+			{
+				"id": "x3dg2454ssw",
+				"name": "Download Zip",
+				"uriPattern": null,
+				"selectorId": ["id(\"js-repo-pjax-container\")/div[2]/div[1]/div[5]/details[1]/div[1]/div[1]/div[1]/div[2]/a[2]"],
+				"selectorType": ["XPath"],
+				"actionName": "click",
+				"locationURL": "https://github.com/gorilla/mux",
+				"traceURL": null,
+				"actionApply": "once",
+				"repeat": 0
+			}
+		]
+	}
+}

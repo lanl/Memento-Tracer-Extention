@@ -1,0 +1,80 @@
+{
+	"traceName": "Slideshare",
+	"uriPattern": "https://www.slideshare.net/[hvdsomp]/[perseverance-on-persistence]",
+	"uriRegex": "(www.slideshare.net)/([^/]+)/([^/]+)",
+	"actions": {
+		"1fb9e90a5ff07b": {
+			"id": "1fb9e90a5ff07b",
+			"name": "Starting Resource",
+			"actionName": "load",
+			"selectors": [],
+			"parentId": "1fb9e90a5ff07b",
+			"children": {
+				"4dc522760973f": {
+					"id": "4dc522760973f",
+					"name": "Images in Notes",
+					"actionName": "click",
+					"selectors": [{
+						"selector": "div.notranslate.transcript.add-padding-right.j-transcript a",
+						"selectorType": "CSSSelector",
+						"selectorOrder": 0,
+						"selectorPreferred": true
+					}, {
+						"selector": "id(\"main-panel\")/DIV[2]/DIV[3]//a",
+						"selectorType": "XPath",
+						"selectorOrder": 1,
+						"selectorPreferred": false
+					}],
+					"parentId": "1fb9e90a5ff07b",
+					"children": {},
+					"eventOrder": 4,
+					"repeat": {}
+				},
+				"21d0fe98cb99cd": {
+					"id": "21d0fe98cb99cd",
+					"name": "Next Slides",
+					"actionName": "click",
+					"selectors": [{
+						"selector": ".j-next-btn.arrow-right",
+						"selectorType": "CSSSelector",
+						"selectorOrder": 0,
+						"selectorPreferred": true
+					}, {
+						"selector": "id(\"btnNext\")/DIV[1]",
+						"selectorType": "XPath",
+						"selectorOrder": 1,
+						"selectorPreferred": false
+					}],
+					"parentId": "1fb9e90a5ff07b",
+					"children": {},
+					"eventOrder": 2,
+					"repeat": {
+						"until": {
+							"selectorType": "CSSSelector",
+							"selectorCondition": "clickCount",
+							"selector": "span#total-slides"
+						}
+					}
+				},
+				"0fe9834df99lp": {
+					"id": "21d0fe98cb99cd",
+					"name": "Scroll Page",
+					"actionName": "scroll",
+					"selectors": [],
+					"parentId": "1fb9e90a5ff07b",
+					"children": {},
+					"eventOrder": 3,
+					"repeat": {
+						"until": {
+							"selectorType": "count",
+							"selectorCondition": "scrollCount",
+							"selector": ""
+						}
+					}
+				}
+			},
+			"eventOrder": 1,
+			"repeat": {}
+		}
+	}
+}

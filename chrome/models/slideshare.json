@@ -1,0 +1,73 @@
+{
+	"userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3431.0 Safari/537.36",
+	"resourceURL": "https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture",
+
+	"actions": {
+		"azxdfds22d": {
+			"id": "azxdfds22d",
+			"name": "Starting Resource",
+			"uriPattern": "https://www.slideshare.net/[hvdsomp]/[paul-evan-peters-lecture]",
+			"selectorId": [],
+			"selectorType": [],
+			"actionName": "load",
+			"locationURL": "https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture",
+			"traceURL": null,
+			"actionApply": "once",
+			"eventOrder": 0,
+			"repeat": 0,
+
+			"children": {
+				"bgsjlwp335n": {
+					"id": "bgsjlwp335n",
+					"name": "Next Slide",
+					"uriPattern": null,
+					"selectorId": ["div.j-next-btn.arrow-right"],
+					"selectorType": ["CSSSelector"],
+					"actionName": "click",
+					"locationURL": "https://www.slideshare.net/hvdsomp/paul-evan-peters-lecture",
+					"traceURL": null,
+					"eventOrder": 1,
+					"repeat": {
+						"until": {
+							"selectorType": ["locationURL"],
+							"selectorCondition": "changes",
+							"selectorId": []
+						}
+					}
+				},
+				"7654bfdgbnjk": {
+					"id": "7654bfdgbnjk",
+					"name": "Next Slide",
+					"uriPattern": null,
+					"selectorId": ["li.j-related-item a:first-of-type"],
+					"selectorType": ["CSSSelector"],
+					"actionName": "click",
+					"locationURL": "https://www.slideshare.net/hvdsomp/perseverance-on-persistence",
+					"traceURL": null,
+					"eventOrder": 2,
+					"repeat": {
+						"until": {
+							"selectorType": ["resourceCount"],
+							"selectorCondition": "equals",
+							"selectorId": ["5"]
+						}
+					},
+					"children": {
+						"hjs33fj0um": {
+							"id": "hjs33fj0um",
+							"name": "Stats Tab",
+							"uriPattern": null,
+							"selectorId": ["a.j-stats-tab"],
+							"selectorType": ["CSSSelector"],
+							"actionName": "click",
+							"locationURL": "https://www.slideshare.net/hvdsomp/perseverance-on-persistence",
+							"traceURL": null,
+							"repeat": 0,
+							"eventOrder": 3
+						}
+					}
+				},
+			},
+		}
+	}
+}
