@@ -1,0 +1,93 @@
+{
+"traceName": "test","uriPattern": "https://github.com/papers-we-love/papers-we-love/issues","uriRegex": "https://github.com/papers-we-love/papers-we-love/issues$","actions": {
+  "1baa899f067d81": {
+    "id": "1baa899f067d81",
+    "default_name_set": false,
+    "name": "Starting Resource",
+    "actionName": "load",
+    "selectors": [],
+    "parentId": "1baa899f067d81",
+    "locationUrl": "https://github.com/papers-we-love/papers-we-love/issues",
+    "children": {
+      "26d795eea63ea9": {
+        "id": "26d795eea63ea9",
+        "default_name_set": true,
+        "name": "Event 2 (click)",
+        "actionName": "click",
+        "selectors": [
+          {
+            "selector": "a.btn-link",
+            "selectorMatches": 4,
+            "selectorOrder": 0,
+            "selectorPreferred": false,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "//A[text()=\"\n      \n    \n\n      34 Closed\n    \"]",
+            "selectorMatches": 0,
+            "selectorOrder": 1,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          },
+          {
+            "selector": "id(\"js-issues-toolbar\")/DIV[1]/DIV[1]/DIV[1]/A[2]",
+            "selectorMatches": 1,
+            "selectorOrder": 2,
+            "selectorPreferred": true,
+            "selectorType": "XPath"
+          }
+        ],
+        "parentId": "1baa899f067d81",
+        "children": {
+          "8e9fd337306b84": {
+            "id": "8e9fd337306b84",
+            "default_name_set": true,
+            "name": "Event 8 (click)",
+            "actionName": "click",
+            "selectors": [
+              {
+                "selector": "a.next_page",
+                "selectorMatches": 2,
+                "selectorOrder": 0,
+                "selectorPreferred": true,
+                "selectorType": "CSSSelector"
+              },
+              {
+                "selector": "//A[text()=\"Next\"]",
+                "selectorMatches": 2,
+                "selectorOrder": 1,
+                "selectorPreferred": false,
+                "selectorType": "XPath"
+              },
+              {
+                "selector": "id(\"repo-content-pjax-container\")/DIV[1]/DIV[5]/DIV[1]/A[7]",
+                "selectorMatches": 1,
+                "selectorOrder": 2,
+                "selectorPreferred": false,
+                "selectorType": "XPath"
+              }
+            ],
+            "parentId": "26d795eea63ea9",
+            "children": {},
+            "eventOrder": 8,
+             "repeat": {
+                      "until": {
+                        "selectorType": "selectorPreferred",
+                        "selectorCondition": "default"
+                      }
+                    },
+           
+            "frameIndex": "root"
+          }
+        },
+        "eventOrder": 2,
+        "repeat": {},
+        "frameIndex": "root"
+      }
+    },
+    "eventOrder": 1,
+    "repeat": {},
+    "frameIndex": ""
+  }
+}
+}

@@ -1,0 +1,45 @@
+{
+"traceName": "git_all_lonks.test","uriPattern": "https://github.com/lanl/Memento-Tracer-Extention","uriRegex": "https://github.com/lanl/Memento-Tracer-Extention$","actions": {
+  "197b6255e92cc": {
+    "id": "197b6255e92cc",
+    "default_name_set": false,
+    "name": "Starting Resource",
+    "actionName": "load",
+    "selectors": [],
+    "parentId": "197b6255e92cc",
+    "locationUrl": "https://github.com/lanl/Memento-Tracer-Extention",
+    "children": {
+      "5d4e004759a017": {
+        "id": "5d4e004759a017",
+        "default_name_set": true,
+        "name": "All_links  (click all links in an area)",
+        "actionName": "click all links in an area",
+        "selectors": [
+          {
+            "selector": "div.Box.mb-3 a",
+            "selectorMatches": 18,
+            "selectorOrder": 0,
+            "selectorPreferred": true,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "id(\"repo-content-pjax-container\")/DIV[1]/DIV[1]/DIV[3]/DIV[1]/DIV[2]//a",
+            "selectorMatches": 18,
+            "selectorOrder": 1,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          }
+        ],
+        "parentId": "197b6255e92cc",
+        "children": {},
+        "eventOrder": 5,
+        "repeat": {},
+        "frameIndex": "root"
+      }
+    },
+    "eventOrder": 1,
+    "repeat": {},
+    "frameIndex": ""
+  }
+}
+}

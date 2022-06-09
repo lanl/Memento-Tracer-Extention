@@ -1,0 +1,11 @@
+1) crawler - not using personal accounts, so log out from github if your recording trace
+2) try to select css selector as preferance to xpath , as xpath often too specific, for example
+next button in github
+"id(\"repo-content-pjax-container\")/DIV[1]/DIV[5]/DIV[1]/A[2]", --- if issues has 2 pages
+"id(\"repo-content-pjax-container\")/DIV[1]/DIV[5]/DIV[1]/A[8]", --- if issues has 8 pages
+3) click - until (repeated click)
+a) if you need to  download  all links in the area after each click --do child element "all links in the area" after click -until event
+b) I put condition if css selector in click -until shows more then 2, click only on first. ( repeated click assumes only one next button)
+4) if you need  to apply trace to different page url  in demo tracer, open json file and change ' "uriRegex": ' value to different url or regex
+"traceName": "git_next","uriPattern": "https://github.com/papers-we-love/papers-we-love","uriRegex": "https://github.com/benmarwick/wordcountaddin$","actions": {
+ 

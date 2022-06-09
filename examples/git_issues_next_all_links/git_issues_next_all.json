@@ -1,0 +1,154 @@
+{
+"traceName": "test","uriPattern": "https://github.com/papers-we-love/papers-we-love/issues","uriRegex": "https://github.com/papers-we-love/papers-we-love/issues$","actions": {
+  "18852cda5401a6": {
+    "id": "18852cda5401a6",
+    "default_name_set": false,
+    "name": "Starting Resource",
+    "actionName": "load",
+    "selectors": [],
+    "parentId": "18852cda5401a6",
+    "locationUrl": "https://github.com/papers-we-love/papers-we-love/issues",
+    "children": {
+      "2bd8b0c8e9d5cf": {
+        "id": "2bd8b0c8e9d5cf",
+        "default_name_set": true,
+        "name": "all_open_issues (click all links in an area)",
+        "actionName": "click all links in an area",
+        "selectors": [
+          {
+            "selector": "div.flex-auto.min-width-0.p-2.pr-3.pr-md-2 a",
+            "selectorMatches": 12,
+            "selectorOrder": 0,
+            "selectorPreferred": true,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "div.Box.mt-3.Box--responsive.hx_Box--firstRowRounded0 a",
+            "selectorMatches": 12,
+            "selectorOrder": 0,
+            "selectorPreferred": false,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "id(\"issue_674\")/DIV[1]/DIV[2]",
+            "selectorMatches": 1,
+            "selectorOrder": 1,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          }
+        ],
+        "parentId": "18852cda5401a6",
+        "children": {},
+        "eventOrder": 2,
+        "repeat": {},
+        "frameIndex": "root"
+      },
+      "3a4ba2322c7f19": {
+        "id": "3a4ba2322c7f19",
+        "default_name_set": true,
+        "name": "Closed button (click)",
+        "actionName": "click",
+        "selectors": [
+          {
+            "selector": "a.btn-link",
+            "selectorMatches": 4,
+            "selectorOrder": 0,
+            "selectorPreferred": false,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "//A[text()=\"\n      \n    \n\n      152 Closed\n    \"]",
+            "selectorMatches": 0,
+            "selectorOrder": 1,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          },
+          {
+            "selector": "id(\"js-issues-toolbar\")/DIV[1]/DIV[1]/DIV[1]/A[2]",
+            "selectorMatches": 1,
+            "selectorOrder": 2,
+            "selectorPreferred": true,
+            "selectorType": "XPath"
+          }
+        ],
+        "parentId": "18852cda5401a6",
+        "children": {
+          "4400df6b279ab5": {
+            "id": "4400df6b279ab5",
+            "default_name_set": true,
+            "name": "next (click)",
+            "actionName": "click",
+            "selectors": [
+              {
+                "selector": "a.next_page",
+                "selectorMatches": 2,
+                "selectorOrder": 0,
+                "selectorPreferred": true,
+                "selectorType": "CSSSelector"
+              },
+              {
+                "selector": "//A[text()=\"Next\"]",
+                "selectorMatches": 2,
+                "selectorOrder": 1,
+                "selectorPreferred": false,
+                "selectorType": "XPath"
+              },
+              {
+                "selector": "id(\"repo-content-pjax-container\")/DIV[1]/DIV[5]/DIV[1]/A[7]",
+                "selectorMatches": 1,
+                "selectorOrder": 2,
+                "selectorPreferred": false,
+                "selectorType": "XPath"
+              }
+            ],
+            "parentId": "3a4ba2322c7f19",
+            "children": {
+              "75dd57f7994142": {
+                "id": "75dd57f7994142",
+                "default_name_set": true,
+                "name": "all_links_issues (click all links in an area)",
+                "actionName": "click all links in an area",
+                "selectors": [
+                  {
+                    "selector": "div.flex-auto.min-width-0.p-2.pr-3.pr-md-2 a",
+                    "selectorMatches": 90,
+                    "selectorOrder": 0,
+                    "selectorPreferred": true,
+                    "selectorType": "CSSSelector"
+                  },
+                  {
+                    "selector": "id(\"issue_673\")/DIV[1]/DIV[2]//a",
+                    "selectorMatches": 4,
+                    "selectorOrder": 1,
+                    "selectorPreferred": false,
+                    "selectorType": "XPath"
+                  }
+                ],
+                "parentId": "4400df6b279ab5",
+                "children": {},
+                "eventOrder": 7,
+                "repeat": {},
+                "frameIndex": "root"
+              }
+            },
+            "eventOrder": 4,
+            "repeat": {
+              "until": {
+                "selectorType": "selectorPreferred",
+                "selectorCondition": "default"
+              }
+            },
+            "frameIndex": "root"
+          }
+        },
+        "eventOrder": 3,
+        "repeat": {},
+        "frameIndex": "root"
+      }
+    },
+    "eventOrder": 1,
+    "repeat": {},
+    "frameIndex": ""
+  }
+}
+}
