@@ -1,11 +1,30 @@
-1) crawler - not using personal accounts, so log out from github if your recording trace
-2) try to select css selector as preferance to xpath , as xpath often too specific, for example
+# crawler - not using personal accounts, so log out from github if your recording trace 
+# if you need  to apply trace to different page url  in demo tracer, open json file and change ' "uriRegex": ' value to different url or regex
+"traceName": "git_next","uriPattern": "https://github.com/papers-we-love/papers-we-love","uriRegex": "https://github.com/benmarwick/wordcountaddin$","actions": {
+ 
+## css selector vs xpath : 
+con : css selector often  not always selective, so not pointing to one element.
+pro:  xpath is often can pinpoint to exact element on html page.
+pro:  css selector can stay same if html template  changes
+pro:   css selector can pinpoint to element generically across "family of pages of same template" 
+con: xpath sometimes too specific to specific page and can not be generalized:  for example
 next button in github
 "id(\"repo-content-pjax-container\")/DIV[1]/DIV[5]/DIV[1]/A[2]", --- if issues has 2 pages
 "id(\"repo-content-pjax-container\")/DIV[1]/DIV[5]/DIV[1]/A[8]", --- if issues has 8 pages
-3) click - until (repeated click)
-a) if you need to  download  all links in the area after each click --do child element "all links in the area" after click -until event
-b) I put condition if css selector in click -until shows more then 2, click only on first. ( repeated click assumes only one next button)
-4) if you need  to apply trace to different page url  in demo tracer, open json file and change ' "uriRegex": ' value to different url or regex
-"traceName": "git_next","uriPattern": "https://github.com/papers-we-love/papers-we-love","uriRegex": "https://github.com/benmarwick/wordcountaddin$","actions": {
- 
+
+# try to select css selector as preferance to xpath where possible.
+
+## all links in area macro - 
+from selected area crawler will collect all href attributes and download all links in separate process from navigation,
+# "click - until" (repeated click) or loop 
+"click -untill" establishes loop or iteration of action. For example,  crawler will click next button untill stop condition (button disabled; button disapered
+etc). In this scenario selector of next button stay same, but state of page changes (loaded  page 2 after page 1 etc).
+You can add actions to the body of click - until  loop as child elements
+a) if you need to  download  all links in the area after each next click --do child element "all links in the area" after click -until event
+b) repeated "click - untill " assumes only one next button, so as work around if css selector in click -until shows array of elements, crawler use  first in the list. 
+## "click - multi" (repeated click) or loop
+Iteration over list of elements on particular page.
+For example page has multiple clickable elements (links, images etc) which can be selected as list of elements.
+Crawler will click on elements in sequence, but often click on element changes state of the page: pop up window or new page (new url) opens up.
+User  need to specify how to return to  the previos state: browser back button or close button etc, so crawler can find  next element in sequence and click on it.
+User also can add children action elements to "click - multi" which correspond to the body of the loop and will be executed after each clickable element in the "click multi" list.
