@@ -1,0 +1,58 @@
+{
+"traceName": "multi test","uriPattern": "https://github.com/papers-we-love/papers-we-love/pulse","uriRegex": "https://github.com/papers-we-love/papers-we-love/pulse$","actions": {
+  "1d9c36223f4de2": {
+    "id": "1d9c36223f4de2",
+    "default_name_set": false,
+    "name": "Starting Resource",
+    "actionName": "load",
+    "selectors": [],
+    "parentId": "1d9c36223f4de2",
+    "locationUrl": "https://manifold.umn.edu/read/fc03beb6-e670-4746-af17-4bac70ddb764/section/873bd50b-aea0-44d1-a5ad-895eba66e1b9",
+    "children": {
+      "950a78201fe54f": {
+        "id": "950a78201fe54f",
+        "default_name_set": true,
+        "name": "Event 9 (click)",
+        "actionName": "click",
+        "selectors": [
+          {
+            "selector": "a.js-selected-navigation-item.menu-item",
+            "selectorMatches": 8,
+            "selectorOrder": 0,
+            "selectorPreferred": true,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "//A[text()=\"Contributors\"]",
+            "selectorMatches": 1,
+            "selectorOrder": 1,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          },
+          {
+            "selector": "id(\"repo-content-pjax-container\")/DIV[2]/DIV[1]/DIV[1]/NAV[1]/A[2]",
+            "selectorMatches": 1,
+            "selectorOrder": 2,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          }
+        ],
+        "parentId": "1d9c36223f4de2",
+        "children": {},
+        "eventOrder": 9,
+        "repeat": {
+          "along_with": {
+            "exit_cond": "click-back-button",
+            "selectorType": "built-in",
+            "selectorCondition": "browserback"
+          }
+        },
+        "frameIndex": "root"
+      }
+    },
+    "eventOrder": 1,
+    "repeat": {},
+    "frameIndex": ""
+  }
+}
+}

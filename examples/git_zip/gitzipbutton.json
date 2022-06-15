@@ -1,0 +1,73 @@
+{
+"traceName": "githubzipbutton","uriPattern": "https://github.com/papers-we-love/papers-we-love","uriRegex": "https://github.com/papers-we-love/papers-we-love$","actions": {
+  "1d5dcd2074b5a3": {
+    "id": "1d5dcd2074b5a3",
+    "default_name_set": false,
+    "name": "Starting Resource",
+    "actionName": "load",
+    "selectors": [],
+    "parentId": "1d5dcd2074b5a3",
+    "locationUrl": "https://github.com/papers-we-love/papers-we-love",
+    "children": {
+      "3e84afcacbdd6f": {
+        "id": "3e84afcacbdd6f",
+        "default_name_set": true,
+        "name": "code_button (click)",
+        "actionName": "click",
+        "selectors": [
+          {
+            "selector": "summary.btn-primary.btn",
+            "selectorMatches": 1,
+            "selectorOrder": 0,
+            "selectorPreferred": true,
+            "selectorType": "CSSSelector"
+          },
+          {
+            "selector": "id(\"repo-content-pjax-container\")/DIV[1]/DIV[1]/DIV[3]/DIV[1]/DIV[1]/SPAN[1]/GET-REPO[1]/DETAILS[1]/SUMMARY[1]",
+            "selectorMatches": 1,
+            "selectorOrder": 1,
+            "selectorPreferred": false,
+            "selectorType": "XPath"
+          }
+        ],
+        "parentId": "1d5dcd2074b5a3",
+        "children": {
+          "949a7a21f64fd": {
+            "id": "949a7a21f64fd",
+            "default_name_set": true,
+            "name": "click-zip (click)",
+            "actionName": "click",
+            "selectors": [
+              {
+                "selector": "svg.octicon.octicon-file-zip.mr-2",
+                "selectorMatches": 1,
+                "selectorOrder": 0,
+                "selectorPreferred": true,
+                "selectorType": "CSSSelector"
+              },
+              {
+                "selector": "//A[text()=\"\n    \n    \n\n    Download ZIP\n\"],id(\"repo-content-pjax-container\")/DIV[1]/DIV[1]/DIV[3]/DIV[1]/DIV[1]/SPAN[1]/GET-REPO[1]/DETAILS[1]/DIV[1]/DIV[1]/DIV[1]/UL[1]/LI[3]/A[1]/svg[1]",
+                "selectorMatches": 0,
+                "selectorOrder": 1,
+                "selectorPreferred": false,
+                "selectorType": "XPath"
+              }
+            ],
+            "parentId": "3e84afcacbdd6f",
+            "children": {},
+            "eventOrder": 9,
+            "repeat": {},
+            "frameIndex": "root"
+          }
+        },
+        "eventOrder": 3,
+        "repeat": {},
+        "frameIndex": "root"
+      }
+    },
+    "eventOrder": 1,
+    "repeat": {},
+    "frameIndex": ""
+  }
+}
+}
