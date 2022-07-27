@@ -1193,13 +1193,16 @@ function createModalEventForm(event) {
 
     // EVENT TYPE
     modal.push(createEventTypeChoices(event_id, event.actionName));
-
+    //test
+    //modal.push('<button type="button" class="btn btn-default btn-danger tracer-bg" id="try_again_'+event.id+'" title="Try Again"><span class="fas fa-trash-alt"></span></button>');
+    
+  
     // CHOOSE ELEMENT BUTTON
     modal.push('<div class="btn-toolbar justify-content-center">');
     if (event.actionName === "click") {
         modal.push('<button type="button" class="btn btn-info" id="choose_element_' + event_id + '">Choose Element to Click</button>');
     }
-
+    
     modal.push('</div>');
     modal.push('<br/>');
 
@@ -1272,10 +1275,12 @@ function updateEventModalUI(event, chosenSelectors) {
 
     selectorEle.html(selectorUI);
     attachSelectorMouseOverEvents(event);
-
+    //test
+    //attachChooseElementtoClickEventListener(eventId)
     createRepeatChoices(event);
-
+	//lb
     $("#choose_element_"+eventId).attr("disabled", true);
+       //lb$("#choose_element_"+eventId).attr("disabled", false);
     $("#action_type_"+eventId).attr("disabled", true);
     //$("#click_until_"+eventId).attr("disabled", true);
     //$("#select_all_links_until_"+eventId).attr("disabled", true);
@@ -1302,6 +1307,7 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     let startingResource = false;
     if (event.actionName === "load") {
         startingResource = true;
+        
     }
     let event_ui = [];
     event_ui.push('<div class="btn-group justify-content-end '+width_class+'" role="group">');
@@ -1319,12 +1325,26 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     event_ui.push('data-target="#action_modal_' + event.id + '"');
     event_ui.push('>');
     if (event.repeat.hasOwnProperty("until")) {
-        event_ui.push('<span class="adjust-line-height fas fa-retweet float-right"></span>');
+        event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
-    if (outLink) {
-        event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-right"></span>');
-
+    if (event.repeat.hasOwnProperty("along_with")) {
+        event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
+    if (event.actionName == "click all links in an area"){
+	 event_ui.push('<span class="adjust-line-height fas fa-download float-left"></span>');
+    }
+     if (event.actionName == "click" && !event.repeat.hasOwnProperty("until") ){
+	 event_ui.push('<span class="adjust-line-height fas fa-hand-pointer float-left"></span>');
+    }
+    
+   if (outLink) {
+       //event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-right"></span>');
+      // event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-right"></span>');
+       event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-left"></span>');
+    }
+  //  if (startingResource) {
+    //   event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-left"></span>');
+    //}
     event_ui.push(event.name);
     event_ui.push('</button>');
     if (!insertCopiedTrace) {
@@ -1514,6 +1534,14 @@ function attachModalCloseEvents(eventId) {
     });
 }
 
+function attachChooseElementtoClickEventListener(eventId) {
+    $("#try_again_" + eventId).on("click", function() {
+	  $("#choose_element_"+eventId).attr("disabled", false);
+	});
+	}
+	
+	
+	
 /*
  * SAVE button.
  *
@@ -1538,7 +1566,10 @@ function attachSaveEventListener(eventId) {
         let eventName = "";
 
         if (currentEvent.default_name_set === true) {
-            eventName = $("#action_name_"+eventId).val() + " (" + currentEvent.actionName + ")";
+	        if (currentEvent.actionName==='click all links in an area'){
+		    eventName = $("#action_name_"+eventId).val()
+	} else {
+            eventName = $("#action_name_"+eventId).val() + " (" + currentEvent.actionName + ")"; }
         } else {
             eventName = $("#action_name_"+eventId).val();
         }
@@ -1874,7 +1905,7 @@ function attachEndClickEventListener(eventId) {
  */
 function attachChooseElementEventListener(eventId) {
     $("#choose_element_"+eventId).on("click", function() {
-        
+        //lb
         $(this).attr("disabled", true);
         let event_type = $("#action_type_" + eventId + " :selected").text();
         let message = {};
@@ -2009,6 +2040,35 @@ function popupInit(onTabActivated) {
             let downloadModal = createModalDownloadViewer(resource_url);
             $("#download_modal_container").append(downloadModal);
 
+           //lb added
+             var reader = new FileReader();
+           
+             reader.onload = function(event) {
+           
+             let tracejson = reader.result;
+             console.log(tracejson) 
+             trace=Trace.fromJSON(tracejson) 
+             createEventUI(trace.actions, trace.resource_url);
+             
+            };
+            // 
+             const inputElem = document.getElementById("load_trace");
+             //inputElem.addEventListener("change", handleFiles, false);
+             
+             inputElem.onchange = function(event) {
+             reader.readAsText(event.target.files[0]);
+             };
+             
+             
+             fileElem = document.getElementById("load_trace_b");
+             
+             fileElem.addEventListener("click", function (e) {
+              if (inputElem) {
+               inputElem.click();
+               }
+             }, false);
+           
+
             $("#download_trace").on("click", function() {
                 $("#download_modal").modal("show");
             });
@@ -2031,6 +2091,7 @@ function popupInit(onTabActivated) {
                     filename: res.hostname + ".json",
                     url: window.URL.createObjectURL(blob),
                     saveAs: true,
+                    
                     conflictAction: 'overwrite'
                 });
             });

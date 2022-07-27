@@ -1,8 +1,8 @@
 {
     "name": "Memento Tracer",
     "description" : "Record Interactions to provide a template for Web Archiving a Web Page",
-    "version": "0.2.6.9999",
-    "version_name": "0.2.7-development-extwin",
+    "version": "1.2.6.9999",
+    "version_name": "1.2.7-development-extwin",
     "manifest_version": 2,
     "browser_action": {
     	"default_icon": "logo.png",

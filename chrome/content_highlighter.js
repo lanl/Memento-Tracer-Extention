@@ -58,7 +58,8 @@ function createHighlighter(cls=null) {
 	else {
 		highlighter.setAttribute("class", "highlighter");
 	}
-	highlighter.style.cssText = 'position: absolute; background-color: #17a2b8; opacity: 0.5; z-index:100000; pointer-events:none; display:none;';
+//lb
+	highlighter.style.cssText = 'position: absolute; background-color: #17a2b8; opacity: 0.5;  z-index:100000; pointer-events:none; display:none;';
 	return highlighter;
 }
 
@@ -76,6 +77,7 @@ function showHighlighterForElement(element) {
 		left: offset.left,
 		width: width,
 		height: height
+		
 	}).show();
 }
 
