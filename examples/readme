@@ -16,6 +16,8 @@ next button in github
 
 ## all links in area macro - 
 from selected area crawler will collect all href attributes and download all links in separate process from navigation,
+To check what links you selected hover over "Selector Choice" "matches". 
+
 # "click - until" (repeated click) or loop 
 "click -untill" establishes loop or iteration of action. For example,  crawler will click next button untill stop condition (button disabled; button disapered
 etc). In this scenario selector of next button stay same, but state of page changes (loaded  page 2 after page 1 etc).
