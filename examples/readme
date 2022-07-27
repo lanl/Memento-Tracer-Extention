@@ -15,8 +15,15 @@ next button in github
 # try to select css selector as preferance to xpath where possible.
 
 ## all links in area macro - 
-from selected area crawler will collect all href attributes and download all links in separate process from navigation,
-To check what links you selected hover over "Selector Choice" "matches". 
+User utilize  blue rectangular highlighter  to pinpoint area on the page  to select links from.
+To check what links you selected hover over "Selector Choice" "matches" ( click pop up extension window first to focus on this window).
+The granularity of selected area based on the groupings of page  elements, 
+so not possible to select any abitrary combination of links.
+But selecting few extra links is not big deal, since crawler based on this macro will just download few extra links which can be ignored.
+You also can create 2 or more separate "all links in area events" if you  can pinpoint to separate link groupings on the page. 
+Rename event after your happy with links selected.
+Before you click "select  links in the area" etc. you can reload web page to  clean any hanging previous  processes.
+While executing this macro, crawler will collect all href attributes and download all links in separate  from navigation process.
 
 # "click - until" (repeated click) or loop 
 "click -untill" establishes loop or iteration of action. For example,  crawler will click next button untill stop condition (button disabled; button disapered
