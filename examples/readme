@@ -14,16 +14,17 @@ next button in github
 
 # try to select css selector as preferance to xpath where possible.
 
-## all links in area macro - 
+## all links in area macro - (<div<a href>)
 User utilize  blue rectangular highlighter  to pinpoint area on the page  to select links from.
 To check what links you selected hover over "Selector Choice" "matches" ( click pop up extension window first to focus on this window).
-The granularity of selected area based on the groupings of page  elements, 
+The granularity of selected area based on the groupings of page  elements under <div><a href element
 so not possible to select any abitrary combination of links.
 But selecting few extra links is not big deal, since crawler based on this macro will just download few extra links which can be ignored.
 You also can create 2 or more separate "all links in area events" if you  can pinpoint to separate link groupings on the page. 
 Rename event after your happy with links selected.
 Before you click "select  links in the area" etc. you can reload web page to  clean any hanging previous  processes.
-While executing this macro, crawler will collect all href attributes and download all links in separate  from navigation process.
+While executing this macro, crawler will collect all href attributes of div and download all links in separate  from navigation process.
+Please note hrefs from  nested divs not downloaded. 
 
 # "click - until" (repeated click) or loop 
 "click -untill" establishes loop or iteration of action. For example,  crawler will click next button untill stop condition (button disabled; button disapered
@@ -32,7 +33,7 @@ You can add actions to the body of click - until  loop as child elements
 a) if you need to  download  all links in the area after each next click --do child element "all links in the area" after click -until event
 b) repeated "click - untill " assumes only one next button, so as work around if css selector in click -until shows array of elements, crawler use  first in the list. 
 ## "click - multi" (repeated click) or loop
-Iteration over list of elements on particular page.
+Iteration over list of elements on particular page. 
 For example page has multiple clickable elements (links, images etc) which can be selected as list of elements.
 Crawler will click on elements in sequence, but often click on element changes state of the page: pop up window or new page (new url) opens up.
 User  need to specify how to return to  the previos state: browser back button or close button etc, so crawler can find  next element in sequence and click on it.
