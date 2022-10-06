@@ -134,6 +134,7 @@ class Trace {
             return false;
         }
         let paths = path.split(".");
+
         let currentEvent = this._actions[paths.shift()];
 
         while (paths.length > 1) {
@@ -144,6 +145,18 @@ class Trace {
         // for eg: delete a["asdsdfdgs"] instead of delete a
         delete currentEvent.children[paths.shift()];
         return true;
+    }
+
+    editEventName(eventId) {
+        let path = this.getShortestPath(eventId);
+        if (!path) {
+            return false;
+        }
+
+        let paths = path.split(".");
+
+        let currentEvent = this._actions[paths[-1]];
+        chrome.extension.getBackgroundPage().console.log(currentEvent);
     }
 
     get actions() {
@@ -1405,7 +1418,7 @@ function createEventUI(actions, resource_url, copiedTrace) {
         ui.push(createEventButtons(currEvent, widthClass, insertCopiedTrace, outLink));
         ui.push(createModalEventViewer(currEvent));
         $("#event_ui").append(ui.join(""));
-        attachCreateDeleteButtonEvents(currEvent);
+        attachCreateDeleteEditButtonEvents(currEvent);
         if (insertCopiedTrace) {
             attachInsertButtonEvent(currEvent, copiedTrace);
         }
@@ -1487,7 +1500,7 @@ function attachInsertButtonEvent(event, copiedTrace) {
  * the + button is clicked to add a new event and also handles the
  * deletion of an event and it's children when the trash button is clicked.
  */
-function attachCreateDeleteButtonEvents(event) {
+function attachCreateDeleteEditButtonEvents(event) {
     $("#create_event_for_" + event.id).on("click", function() {
         getStoredEvents().then( (items) => {
             // let events = items[0];
@@ -1519,6 +1532,21 @@ function attachCreateDeleteButtonEvents(event) {
             }
         });
     });
+
+    $("#edit_event_name_for_" + event.id).on("click", function() {
+        chrome.tabs.query({ active: true }, function(tabs) {
+            for (i = 0; i < tabs.length; i++) {
+                if (tabs[i].url != chrome.runtime.getURL("popup.html")) {
+                    trace.editEventName(event.id);
+                    let resource_url = tabs[i].url;
+                    let newEvent = {};
+                    newEvent[resource_url] = trace.toJSON();
+                    chrome.storage.local.set(newEvent);
+                    createEventUI(trace.actions, resource_url, null);
+                }
+            }
+        })
+    })
 }
 
 /*
