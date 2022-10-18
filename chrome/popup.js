@@ -148,15 +148,11 @@ class Trace {
     }
 
     editEventName(eventId) {
-        let path = this.getShortestPath(eventId);
-        if (!path) {
-            return false;
-        }
+        chrome.extension.getBackgroundPage().console.log("In Event");
 
-        let paths = path.split(".");
-
-        let currentEvent = this._actions[paths[-1]];
-        chrome.extension.getBackgroundPage().console.log(currentEvent);
+        let currentEvent = this.getTracerEvent(eventId);
+        currentEvent.name = "Try";
+        chrome.extension.getBackgroundPage().console.log(currentEvent.name);
     }
 
     get actions() {
@@ -307,8 +303,9 @@ class TracerEvent {
         return TracerEvent.eventCount.toString() + Math.random().toString(16).slice(2);
     }
 
+    // WIP
     updateEventName(newEventName) {
-        event.name = newEventName;
+        TracerEvent.name = newEventName;
         this.default_name_set = false;
     }
 }
@@ -1234,6 +1231,39 @@ function createModalEventForm(event) {
 }
 
 /*
+ * Creates the form in modal mode when the gray edit button is clicked
+ * for editing event names.
+ */
+function editEventNameForm(event) {
+    let event_id = event.id;
+
+    let modal = [];
+    modal.push('<div class="modal fade" id="action_modal_edit_'+event_id+'" tabindex="-1" role="dialog">');
+    modal.push('<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header bg-dark">');
+    modal.push('<h5 class="modal-title text-white" id="myModalLabel">Edit Event Name</h5>');
+    modal.push('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="text-white" aria-hidden="true">&times;</span></button>');
+    modal.push('</div>');
+    // END HEADER
+
+    // modal BODY
+    modal.push('<div class="modal-body" style="font-size: 1.3em;">');
+    modal.push('<form>');
+    modal.push('<div class="form-group">');
+
+    // NAME
+    modal.push('<label for="action_name_' + event_id +'">Name</label>');
+    let action_name = (event.name) ? event.name : "";
+    modal.push('<input type="text" class="form-control form-control-sm" id="action_name_' + event_id + '" placeholder="Enter optional name for this action" value="' + action_name + '" />');
+    modal.push('</div>');
+    modal.push('</div>');
+    modal.push('<br/>');
+    modal.push('</form>');
+    modal.push('<button type="button" class="btn btn-success" id="save_edit_' + event_id + '" data-dismiss="modal">Save</button>');
+    modal.push('</div></div></div>');
+    return modal.join("");
+}
+
+/*
  * Creates the modal window when the "download" button is clicked.
  * Shows a form to enter a name for the trace and to fill the URI
  * pattern for the trace.
@@ -1351,13 +1381,8 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     }
     
    if (outLink) {
-       //event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-right"></span>');
-      // event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-right"></span>');
        event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-left"></span>');
     }
-  //  if (startingResource) {
-    //   event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-left"></span>');
-    //}
     event_ui.push(event.name);
     event_ui.push('</button>');
     if (!insertCopiedTrace) {
@@ -1366,11 +1391,9 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     else {
         event_ui.push('<button type="button" class="btn btn-default btn-warning tracer-bg" id="insert_event_for_'+event.id+'" title="Insert Copied Event"><span class="fas fa-clone"></span></button>');
     }
-    if (event.eventOrder === 1) {
-        event_ui.push('<button type="button" class="btn btn-default btn-danger tracer-bg" id="delete_event_'+event.id+'" title="Delete Event" disabled><span class="fas fa-trash-alt"></span></button>');
-    }
-    else {
+    if (event.eventOrder != 1) {
         event_ui.push('<button type="button" class="btn btn-default btn-danger tracer-bg" id="delete_event_'+event.id+'" title="Delete Event"><span class="fas fa-trash-alt"></span></button>');
+        event_ui.push('<button type="button" class="btn btn-default btn-secondary tracer-bg" id="edit_event_name_for_'+event.id+'" title="Edit Event Name"><span class="fas fa-pencil-alt"></span></button>');
     }
 
     event_ui.push('</div>');
@@ -1503,8 +1526,6 @@ function attachInsertButtonEvent(event, copiedTrace) {
 function attachCreateDeleteEditButtonEvents(event) {
     $("#create_event_for_" + event.id).on("click", function() {
         getStoredEvents().then( (items) => {
-            // let events = items[0];
-            //let eventCount = Object.keys(items.events.actions).length;
             let newEventData = createNewEventMetadata(event.id);
             let newEventModal = createModalEventForm(newEventData);
             $("#event_ui").append(newEventModal);
@@ -1534,19 +1555,17 @@ function attachCreateDeleteEditButtonEvents(event) {
     });
 
     $("#edit_event_name_for_" + event.id).on("click", function() {
-        chrome.tabs.query({ active: true }, function(tabs) {
-            for (i = 0; i < tabs.length; i++) {
-                if (tabs[i].url != chrome.runtime.getURL("popup.html")) {
-                    trace.editEventName(event.id);
-                    let resource_url = tabs[i].url;
-                    let newEvent = {};
-                    newEvent[resource_url] = trace.toJSON();
-                    chrome.storage.local.set(newEvent);
-                    createEventUI(trace.actions, resource_url, null);
-                }
-            }
-        })
-    })
+        chrome.extension.getBackgroundPage().console.log("Clicked Edit");
+        getStoredEvents().then( (items) => {
+            chrome.extension.getBackgroundPage().console.log(event);
+            let editEventNameModal = editEventNameForm(event);
+            chrome.extension.getBackgroundPage().console.log(editEventNameModal);
+            $("#event_ui").append(editEventNameModal);
+            $("#action_modal_edit_"+event.id).modal("show");
+            attachModalCloseEvents("edit_" + event.id);
+            attachSaveEditListener(event);
+        });
+    });
 }
 
 /*
@@ -1567,6 +1586,32 @@ function attachChooseElementtoClickEventListener(eventId) {
 	  $("#choose_element_"+eventId).attr("disabled", false);
 	});
 	}
+
+/*
+* SAVE edit button
+*
+* Handles updating the event name for the editEventName modal
+*/
+function attachSaveEditListener(event) {
+    $("#save_edit_" + event.id).on("click", function() {
+        console.log("Save button clicked");
+        if (event.default_name_set === true) {
+	        if (event.actionName==='click all links in an area'){
+		        eventName = $("#action_name_"+event.id).val()
+            } else {
+                eventName = $("#action_name_"+event.id).val() + " (" + event.actionName + ")"; }
+        } else {
+            eventName = $("#action_name_"+event.id).val();
+        }
+        event.name = eventName;
+        let events = {};
+        getStoredEvents().then( (items) => {
+            let resource_url = items[1];
+            events[resource_url] = trace.toJSON();
+            chrome.storage.local.set(events);
+        });
+    })
+}
 	
 	
 	
