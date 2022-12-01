@@ -147,14 +147,6 @@ class Trace {
         return true;
     }
 
-    editEventName(eventId) {
-        chrome.extension.getBackgroundPage().console.log("In Event");
-
-        let currentEvent = this.getTracerEvent(eventId);
-        currentEvent.name = "Try";
-        chrome.extension.getBackgroundPage().console.log(currentEvent.name);
-    }
-
     get actions() {
         return this._actions;
     }
@@ -1222,7 +1214,8 @@ function createModalEventForm(event) {
     modal.push('</form>');
     modal.push('<div id="event_btns_'+event_id+'">');
     modal.push('<div class="btn-toolbar justify-content-center">');
-    modal.push('<div class="btn-group" role="group">');
+    modal.push('<div>');
+    modal.push('<button type="button" class="btn btn-primary d-none mr-1" id="restart_' + event_id + '" disabled>Restart Selection</button>');
     modal.push('<button type="button" class="btn btn-success d-none" id="save_' + event_id + '" data-dismiss="modal" disabled>Save</button>');
     modal.push("</div>");
     modal.push("</div>");
@@ -1330,6 +1323,8 @@ function updateEventModalUI(event, chosenSelectors) {
     //$("#exit_condition_"+eventId+" :radio:not(:checked)").attr("disabled", true);
     $("#save_"+eventId).attr("disabled", false);
     $("#save_"+eventId).removeClass("d-none");
+    $("#restart_"+eventId).attr("disabled", false);
+    $("#restart_"+eventId).removeClass("d-none");
 }
 
 
@@ -1342,7 +1337,7 @@ function updateEventModalUI(event, chosenSelectors) {
 /*
  * Adds the relevant buttons with their relevant state for an event.
  *
- * This adds the main button that shows the event name, the +/add and delete
+ * This adds the main button that shows the event name, the +/add, edit, and delete
  * buttons as well. It disables the delete button for starting resource.
  */
 function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
@@ -1533,6 +1528,7 @@ function attachCreateDeleteEditButtonEvents(event) {
             attachModalCloseEvents(newEventData.id);
             attachActionTypeSelectMenuEvents(newEventData);
             attachChooseElementEventListener(newEventData.id);
+            attachRestartEventListener(newEventData.id);
             attachSaveEventListener(newEventData.id);
             attachEndClickEventListener(newEventData.id);
         });
@@ -1555,11 +1551,8 @@ function attachCreateDeleteEditButtonEvents(event) {
     });
 
     $("#edit_event_name_for_" + event.id).on("click", function() {
-        chrome.extension.getBackgroundPage().console.log("Clicked Edit");
         getStoredEvents().then( (items) => {
-            chrome.extension.getBackgroundPage().console.log(event);
             let editEventNameModal = editEventNameForm(event);
-            chrome.extension.getBackgroundPage().console.log(editEventNameModal);
             $("#event_ui").append(editEventNameModal);
             $("#action_modal_edit_"+event.id).modal("show");
             attachModalCloseEvents("edit_" + event.id);
@@ -1613,6 +1606,21 @@ function attachSaveEditListener(event) {
     })
 }
 	
+
+function attachRestartEventListener(eventId) {
+    $("#restart_" + eventId).on("click", function() {
+        console.log("Restart button clicked");
+        $("#action_selector_"+eventId).html("");
+        $("#repeat_choices_"+eventId).html("");
+        $("#exit_condition_"+eventId).html("");
+        $("#choose_element_"+eventId).attr("disabled", false);
+        $("#action_type_"+eventId).attr("disabled", false);
+        $("#save_"+eventId).attr("disabled", true);
+        $("#save_"+eventId).addClass("d-none");
+        $("#restart_"+eventId).attr("disabled", true);
+        $("#restart_"+eventId).addClass("d-none");
+    })
+}
 	
 	
 /*
@@ -1640,9 +1648,9 @@ function attachSaveEventListener(eventId) {
 
         if (currentEvent.default_name_set === true) {
 	        if (currentEvent.actionName==='click all links in an area'){
-		    eventName = $("#action_name_"+eventId).val()
-	} else {
-            eventName = $("#action_name_"+eventId).val() + " (" + currentEvent.actionName + ")"; }
+		        eventName = $("#action_name_"+eventId).val()
+            } else {
+                eventName = $("#action_name_"+eventId).val() + " (" + currentEvent.actionName + ")"; }
         } else {
             eventName = $("#action_name_"+eventId).val();
         }
@@ -2007,16 +2015,7 @@ function sendMessageToActiveTab(message) {
     chrome.tabs.query({ active: true }, function(tabs) {
 
         for (i = 0; i < tabs.length; i++) {
-            // console.log(tabs);
             if (tabs[i].url != chrome.runtime.getURL("popup.html")) {
-                // console.log();
-                // console.log("#####");
-                // console.log("sending message: [[ ");
-                // console.log(message);
-                // console.log(tabs[i]);
-                // console.log("]] ...");
-                // console.log("#####");
-                // console.log();
                 chrome.tabs.sendMessage(tabs[i].id, message);
                 break;
             }
@@ -2300,9 +2299,11 @@ chrome.storage.onChanged.addListener((changes) => {
     else if (changes.hasOwnProperty("clickedSelector") && changes.clickedSelector.newValue.chosenSelectors) {
         let val = changes.clickedSelector.newValue;
         let eventId = val.chosenSelectors.eventId;
-        if (tempNewEvents[eventId] && tempNewEvents[eventId].selectors.length > 0) {
-            return;
-        }
+        // Removed this code to allow users to Restart Selection 
+        // if (tempNewEvents[eventId] && tempNewEvents[eventId].selectors.length > 0) {
+        //     console.log("Return");
+        //     return;
+        // }
         let newEvent = updateEvent(val.chosenSelectors, val.frameIndex);
         newEvent.actionName = val.eventType;
 
