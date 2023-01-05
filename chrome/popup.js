@@ -529,25 +529,25 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
 
 /*
  * ---------------------------------------------------------------------------------------
- * UI for Multi Conditions
+ * UI for Loop Conditions
  * ---------------------------------------------------------------------------------------
  */
 /*
  * Creates html to list the exit conditions when the
  * recursive click option is chosen.
  */
-function createClickMultiCondition(event_id, asStr=true) {
+function createClickLoopCondition(event_id, asStr=true) {
     let modal = [];
     modal.push('<div class="header">End Condition</div>');
     modal.push('<div class="form-group">');
 
     modal.push('<div class="row">');
     modal.push('<div class="col">');
-    modal.push('<div id="multiclick_selector">');
+    modal.push('<div id="loopclick_selector">');
     modal.push('<div class="input-group">');
     modal.push('<div class="input-group-prepend">');
     modal.push('<div class="input-group-text">');
-    modal.push('<input type="radio" value="element-to-be-clicked" name="multi_condition_' + event_id + '" checked />');
+    modal.push('<input type="radio" value="element-to-be-clicked" name="loop_condition_' + event_id + '" checked />');
     modal.push('</div>');
     modal.push('</div>');
     modal.push('<span class="form-control form-control-sm">Select Element to be Clicked</span>');
@@ -570,7 +570,7 @@ function createClickMultiCondition(event_id, asStr=true) {
     modal.push('<div class="input-group">');
     modal.push('<div class="input-group-prepend">');
     modal.push('<div class="input-group-text">');
-    modal.push('<input type="radio" value="click-back-button" name="multi_condition_' + event_id + '" />');
+    modal.push('<input type="radio" value="click-back-button" name="loop_condition_' + event_id + '" />');
     modal.push('</div>');
     modal.push('</div>');
     modal.push('<span class="form-control form-control-sm">Click Browser Back Button</span>');
@@ -924,14 +924,14 @@ function createSelectAllLinksRepeatChoices(event_id) {
 function createClickRepeatChoices(event_id) {
     let modal = [];
     modal.push('<div class="form-group">');
-    modal.push('<label for="click_until_' + event_id +'">Click</label>');
+    modal.push('<label for="click_' + event_id +'">Click Type</label>');
 
-    modal.push('<select class="form-control form-control-sm" id="click_until_' + event_id + '" required>');
-    modal.push('<option value="click_until_once_' +event_id+'">Once</option>');
+    modal.push('<select class="form-control form-control-sm" id="click_' + event_id + '" required>');
+    modal.push('<option value="click_once_' +event_id+'">Click Once</option>');
 
-    modal.push('<option value="click_until_repeated_'+event_id+'">Until</option>');
+    modal.push('<option value="click_until_'+event_id+'">Click Until</option>');
 
-    modal.push('<option value="click_multi_repeated_'+event_id+'">Multi</option>');
+    modal.push('<option value="click_loop_'+event_id+'">Start a Loop</option>');
 
     modal.push('</select>');
 
@@ -1318,7 +1318,7 @@ function updateEventModalUI(event, chosenSelectors) {
     $("#choose_element_"+eventId).attr("disabled", true);
        //lb$("#choose_element_"+eventId).attr("disabled", false);
     $("#action_type_"+eventId).attr("disabled", true);
-    //$("#click_until_"+eventId).attr("disabled", true);
+    //$("#click_"+eventId).attr("disabled", true);
     //$("#select_all_links_until_"+eventId).attr("disabled", true);
     //$("#exit_condition_"+eventId+" :radio:not(:checked)").attr("disabled", true);
     $("#save_"+eventId).attr("disabled", false);
@@ -1672,7 +1672,7 @@ function attachSaveEventListener(eventId) {
             selected_action = $("#scroll_until_" + eventId + " :selected").text();
         }
         else {
-            selected_action = $("#click_until_" + eventId + " :selected").text();
+            selected_action = $("#click_" + eventId + " :selected").text();
         }
         if (selected_action === "Until") {
             let exit_cond = $("input[name=exit_condition_"+eventId+"]:checked").val();
@@ -1723,8 +1723,8 @@ function attachSaveEventListener(eventId) {
             currentEvent.repeat = {};
             currentEvent.repeat.until = until;
         }
-        else if (selected_action == "Multi") {
-            let exit_cond = $("input[name=multi_condition_"+eventId+"]:checked").val();
+        else if (selected_action == "Start a Loop") {
+            let exit_cond = $("input[name=loop_condition_"+eventId+"]:checked").val();
             let along_with = {};
             along_with.exit_cond = exit_cond;
 
@@ -1826,8 +1826,8 @@ function attachChangeExitConditionListener(eventId) {
  * When this option is chosen by the user, this handler will create
  * a button to let the user choose the element.
  */
-function attachChangeMultiConditionListener(eventId) {
-    $("input[name=multi_condition_"+eventId+"]").change( function() {
+function attachChangeLoopConditionListener(eventId) {
+    $("input[name=loop_condition_"+eventId+"]").change( function() {
 
         if ($(this).val() === "element-to-be-clicked") {
 
@@ -1906,19 +1906,19 @@ function attachActionTypeSelectMenuEvents(event) {
  * UI sections appropriately.
  */
 function attachClickUntilExitConditions(eventId) {
-    $("#click_until_" + eventId).on("change", function() {
-        let selected_action = $("#click_until_" + eventId + " :selected").text();
+    $("#click_" + eventId).on("change", function() {
+        let selected_action = $("#click_" + eventId + " :selected").text();
         if (selected_action === "Until") {
             let exit_condition = createClickExitCondition(eventId);
             $("#exit_condition_" + eventId).html(exit_condition);
             attachChangeExitConditionListener(eventId);
             attachChooseTotalPagesEventListener(eventId);
         }
-        else if (selected_action === "Multi") {
-            console.log("Multi was clicked!");
-            let exit_condition = createClickMultiCondition(eventId);
+        else if (selected_action === "Start a Loop") {
+            console.log("Start a Loop was clicked!");
+            let exit_condition = createClickLoopCondition(eventId);
             $("#exit_condition_" + eventId).html(exit_condition);
-            attachChangeMultiConditionListener(eventId);
+            attachChangeLoopConditionListener(eventId);
             attachEndClickEventListener(eventId);
         }
         else if (selected_action === "Once") {
@@ -1954,7 +1954,7 @@ function attachChooseTotalPagesEventListener(eventId) {
 /*
  * Activates click recording for the user when the user
  * clicks on the button to select an element that matches the
- * end click as part of the Multi type of Click.
+ * end click as part of the 'Start a Loop' type of Click.
  *
  * The extension cannot talk to the loaded HTML page directly,
  * hence this method will send a message to "recorder.js" which
