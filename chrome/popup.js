@@ -483,10 +483,10 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
         modal.push('<option value="action_type_click_'+event_id+'">Click</option>');
     }
     if (action_type === "select_all_links") {
-        modal.push('<option value="action_type_select_all_links_'+event_id+'" selected>Click All Links in an Area</option>');
+        modal.push('<option value="action_type_select_all_links_'+event_id+'" selected>Capture Group of Links</option>');
     }
     else {
-        modal.push('<option value="action_type_select_all_links_'+event_id+'">Click All Links in an Area</option>');
+        modal.push('<option value="action_type_select_all_links_'+event_id+'">Capture Group of Links</option>');
     }
     if (action_type === "scroll") {
         modal.push('<option value="action_type_scroll_'+event_id+'" selected>Scroll</option>');
@@ -1368,7 +1368,7 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     if (event.repeat.hasOwnProperty("along_with")) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
-    if (event.actionName == "click all links in an area"){
+    if (event.actionName == "capture group of links"){
 	 event_ui.push('<span class="adjust-line-height fas fa-download float-left"></span>');
     }
      if (event.actionName == "click" && !event.repeat.hasOwnProperty("until") ){
@@ -1589,7 +1589,7 @@ function attachSaveEditListener(event) {
     $("#save_edit_" + event.id).on("click", function() {
         console.log("Save button clicked");
         if (event.default_name_set === true) {
-	        if (event.actionName==='click all links in an area'){
+	        if (event.actionName==='capture group of links'){
 		        eventName = $("#action_name_"+event.id).val()
             } else {
                 eventName = $("#action_name_"+event.id).val() + " (" + event.actionName + ")"; }
@@ -1647,7 +1647,7 @@ function attachSaveEventListener(eventId) {
         let eventName = "";
 
         if (currentEvent.default_name_set === true) {
-	        if (currentEvent.actionName==='click all links in an area'){
+	        if (currentEvent.actionName==='capture group of links'){
 		        eventName = $("#action_name_"+eventId).val()
             } else {
                 eventName = $("#action_name_"+eventId).val() + " (" + currentEvent.actionName + ")"; }
@@ -1860,9 +1860,9 @@ function attachActionTypeSelectMenuEvents(event) {
             $("#choose_element_"+eventId).show();
             $("#choose_element_"+eventId).text("Choose Element to Click");
         }
-        else if (selected_action === "Click All Links in an Area" ) {
+        else if (selected_action === "Capture Group of Links" ) {
             $("#choose_element_"+eventId).show();
-            $("#choose_element_"+eventId).text("Choose Area For Elements to Click");
+            $("#choose_element_"+eventId).text("Choose Area For Elements to Capture");
         }
         else if (selected_action === "Scroll" ) {
             $("#choose_element_"+eventId).hide();
@@ -1886,7 +1886,7 @@ function attachActionTypeSelectMenuEvents(event) {
             attachClickUntilExitConditions(eventId);
             
         }
-        else if (selected_action === "Click All Links in an Area"
+        else if (selected_action === "Capture Group of Links"
             && $("#choose_element_"+eventId).is(":disabled")) {
 
             let repeat_choices = createSelectAllLinksRepeatChoices(eventId);
@@ -1993,7 +1993,7 @@ function attachChooseElementEventListener(eventId) {
         if (event_type === "Click") {
             message["attachRecorder"] = [["click", "mouseover"], eventId, "click"];
         }
-        else if (event_type === "Click All Links in an Area") {
+        else if (event_type === "Capture Group of Links") {
             message["attachRecorder"] = [["click", "mouseover"], eventId, "select_all_links"];
         }
         else if (event_type === "Hover") {
