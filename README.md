@@ -24,7 +24,7 @@ We have documented a discussion of issues to be discussed and resolved in [a Goo
 
 # Development
 
-Memento Tracer is very much a prototype. It needs a lot of work to become releasable and should probably be rewritten in its entirety. It violates many of the principles of model-view-controller and similar paradigms. You have been warned. [Read this Google documentation on how to create a Chrome extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/) in order to fully understand why it is structured this way. For example, everything is in the `chrome` folder because that is a requirement for a Chrome extension.
+Memento Tracer is very much a prototype. [Read this Google documentation on how to create a Chrome extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/) in order to fully understand why it is structured this way. For example, everything is in the `chrome` folder because that is a requirement for a Chrome extension.
 
 Here is a listing of the files/folders available in the source code found in the `chrome`:
 
