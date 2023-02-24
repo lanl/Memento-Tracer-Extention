@@ -1384,7 +1384,7 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
         event_ui.push('<button type="button" class="btn btn-default btn-success tracer-bg" data-toggle="tooltip" id="create_event_for_'+event.id+'" title="Create Event"><span class="fas fa-plus-square"></span></button>');
     }
     else {
-        event_ui.push('<button type="button" class="btn btn-default btn-warning tracer-bg" data-toggle="tooltip"id="insert_event_for_'+event.id+'" title="Insert Copied Event"><span class="fas fa-clone"></span></button>');
+        event_ui.push('<button type="button" class="btn btn-default btn-warning tracer-bg" data-toggle="tooltip" id="insert_event_for_'+event.id+'" title="Insert Copied Event"><span class="fas fa-clone"></span></button>');
     }
     if (event.eventOrder != 1) {
         event_ui.push('<button type="button" class="btn btn-default btn-danger tracer-bg" data-toggle="tooltip" id="delete_event_'+event.id+'" title="Delete Event"><span class="fas fa-trash-alt"></span></button>');
@@ -1535,6 +1535,7 @@ function attachCreateDeleteEditButtonEvents(event) {
     });
 
     $("#delete_event_" + event.id).on("click", function() {
+        $('.tooltip').tooltip('hide');
         chrome.tabs.query({ active: true }, function(tabs) {
             
             for (i = 0; i < tabs.length; i++) {
@@ -2353,7 +2354,7 @@ let trace = new Trace();
  */
 ( function() {
     $(document).ready(function() {
-        $("body").tooltip({ selector: '[data-toggle=tooltip]' }); 
+        $("body").tooltip({ selector: '[data-toggle=tooltip]' , 'delay': { show: 1000, hide: 0 }}); 
     });
     // console.log("I have started!!!!");
     // console.log(testVariableOfDoom);
