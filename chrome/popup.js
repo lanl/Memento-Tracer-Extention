@@ -1358,7 +1358,7 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     }
     event_ui.push('class="btn btn-outline-primary btn-block ');
     event_ui.push(width_class + '"');
-    event_ui.push('title="Click to view more details on this Event" ');
+    event_ui.push('data-toggle="tooltip" title="Click to view more details on this Event" ');
     event_ui.push('rel="tooltip" data-toggle="modal"');
     event_ui.push('data-target="#action_modal_' + event.id + '"');
     event_ui.push('>');
@@ -1381,14 +1381,14 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     event_ui.push(event.name);
     event_ui.push('</button>');
     if (!insertCopiedTrace) {
-        event_ui.push('<button type="button" class="btn btn-default btn-success tracer-bg" id="create_event_for_'+event.id+'" title="Create Event"><span class="fas fa-plus-square"></span></button>');
+        event_ui.push('<button type="button" class="btn btn-default btn-success tracer-bg" data-toggle="tooltip" id="create_event_for_'+event.id+'" title="Create Event"><span class="fas fa-plus-square"></span></button>');
     }
     else {
-        event_ui.push('<button type="button" class="btn btn-default btn-warning tracer-bg" id="insert_event_for_'+event.id+'" title="Insert Copied Event"><span class="fas fa-clone"></span></button>');
+        event_ui.push('<button type="button" class="btn btn-default btn-warning tracer-bg" data-toggle="tooltip"id="insert_event_for_'+event.id+'" title="Insert Copied Event"><span class="fas fa-clone"></span></button>');
     }
     if (event.eventOrder != 1) {
-        event_ui.push('<button type="button" class="btn btn-default btn-danger tracer-bg" id="delete_event_'+event.id+'" title="Delete Event"><span class="fas fa-trash-alt"></span></button>');
-        event_ui.push('<button type="button" class="btn btn-default btn-secondary tracer-bg" id="edit_event_name_for_'+event.id+'" title="Edit Event Name"><span class="fas fa-pencil-alt"></span></button>');
+        event_ui.push('<button type="button" class="btn btn-default btn-danger tracer-bg" data-toggle="tooltip" id="delete_event_'+event.id+'" title="Delete Event"><span class="fas fa-trash-alt"></span></button>');
+        event_ui.push('<button type="button" class="btn btn-default btn-secondary tracer-bg" data-toggle="tooltip" id="edit_event_name_for_'+event.id+'" title="Edit Event Name"><span class="fas fa-pencil-alt"></span></button>');
     }
 
     event_ui.push('</div>');
@@ -2352,6 +2352,9 @@ let trace = new Trace();
  * The main function that starts the extension logic.
  */
 ( function() {
+    $(document).ready(function() {
+        $("body").tooltip({ selector: '[data-toggle=tooltip]' }); 
+    });
     // console.log("I have started!!!!");
     // console.log(testVariableOfDoom);
     popupInit();
