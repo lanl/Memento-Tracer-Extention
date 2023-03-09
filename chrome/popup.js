@@ -474,7 +474,8 @@ function createRegExpForPattern(patternUrl) {
 function createEventTypeChoices(event_id, action_type, asStr=true) {
     let modal = [];
     modal.push('<div class="form-group">');
-    modal.push('<label for="action_type_' + event_id +'">Type</label>');
+    modal.push('<label for="action_type_' + event_id +'" style="padding-right: 10px;" >Type</label>');
+    modal.push('<i class="bi-question-circle" data-toggle="tooltip" data-html="true" data-placement="right" title="' + type_helptext + '"></i>');
     modal.push('<select class="form-control form-control-sm" id="action_type_' + event_id + '" required>');
     if (action_type === "click") {
         modal.push('<option value="action_type_click_'+event_id+'" selected>Click</option>');
@@ -538,8 +539,9 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
  */
 function createClickMultiCondition(event_id, asStr=true) {
     let modal = [];
-    modal.push('<div class="header">End Condition</div>');
     modal.push('<div class="form-group">');
+    modal.push('<label style="padding-right: 10px;">End Condition</label>');
+    modal.push('<i class="bi-question-circle" data-toggle="tooltip" data-html="true" data-placement="right" title="' + end_condition_helptext + '"></i>');
 
     modal.push('<div class="row">');
     modal.push('<div class="col">');
@@ -559,7 +561,7 @@ function createClickMultiCondition(event_id, asStr=true) {
     modal.push('<div class="row">');
     modal.push('<div class="col">');
     modal.push('<div id="maximum_number_element_area">');
-    modal.push('<button type="button" class="btn btn-xs btn-info" style="font-size: small; margin: 10px 10px;" ' + 'id="end_element_' + event_id + '">' +
+    modal.push('<button type="button" class="btn btn-info" style="margin: 10px 10px;" ' + 'id="end_element_' + event_id + '">' +
     'Choose element</button>');
     modal.push('</div>');
     modal.push('</div>');
@@ -576,8 +578,6 @@ function createClickMultiCondition(event_id, asStr=true) {
     modal.push('<span class="form-control form-control-sm">Click Browser Back Button</span>');
     modal.push('</div>');
     modal.push('</div>');
-    modal.push('</div>');
-
     modal.push('</div>');
 
     if (asStr) {
@@ -622,7 +622,7 @@ function createClickExitCondition(event_id, asStr=true) {
     modal.push('<div class="row">');
     modal.push('<div class="col">');
     modal.push('<div id="maximum_number_element_area">');
-    modal.push('<button type="button" class="btn btn-xs btn-info" style="font-size: small; margin: 10px 10px;" ' + 'id="choose_total_pages_' + event_id + '">' +
+    modal.push('<button type="button" class="btn btn-info" style="margin: 10px 10px;" ' + 'id="choose_total_pages_' + event_id + '">' +
     'Choose element</button>');
     modal.push('</div>');
     modal.push('</div>');
@@ -735,45 +735,6 @@ function createSelectorTableForExitCondition(selectorInfo, eventId, readonly=fal
 }
 
 /*
- * Creates a table that shows the selector that would matches the value for
- * the Max number of pages to crawl.
- */
-function createSelectorTableForExitCondition(selectorInfo, eventId, readonly=false) {
-
-    let selector = [];
-    let order = 2;
-    for (let sel of selectorInfo) {
-        order++;
-
-        // console.log("####");
-        // console.log("eventId = " + eventId);
-        // console.log("order = " + order);
-        // console.log("####");
-
-        selector.push('<div class="row">');
-        selector.push('<div class="col-11 offset-1">');
-        selector.push('<div id="selector_exit_condition_' + eventId + "_" + order + '" class="input-group">');
-        selector.push('<div class="input-group-prepend"><div class="input-group-text">');
-        selector.push('<input type="radio" label="'+ sel.selector.replace(/"/g, '&quot;') +'" value="' + order + '" name="selector_exit_condition_' + eventId + '"');
-        if (sel.selectorPreferred) {
-            selector.push("checked");
-        }
-        else if (!sel.selectorPreferred && readonly) {
-            selector.push('disabled');
-        }
-        selector.push(' />');
-        selector.push('</div>');
-        selector.push('</div>');
-        selector.push('<span class="form-control form-control-sm">' +
-            'Number specified by element at ' + sel.selectorType + ' - ' + sel.selector + '</span>');
-        selector.push('</div>');
-        selector.push('</div>');
-        selector.push('</div>');
-    }
-    return selector.join("");
-}
-
-/*
  * Handles the creation of the UI when the selector that
  * matches the max pages to crawl exit condition is available.
  * This method populates the existing exit condition table with
@@ -798,7 +759,9 @@ function updateExitCondition(selectors) {
 function createSelectorTable(selectorInfo, eventId, readonly=false, savedSelectors=null) {
 
     let selector = [];
-    selector.push('<label>Selector Choice</label>');
+    // selector.push('<div class="form-group">');
+    selector.push('<label style="padding-right: 10px;">Selector Choice</label>');
+    selector.push('<i class="bi-question-circle" data-toggle="tooltip" data-html="true" data-placement="right" title="' + selector_helptext + '"></i>');
 
     selector.push('<table class="table" style="table-layout: fixed; font-size:0.8rem;">');
     selector.push('<thead>');
@@ -833,6 +796,7 @@ function createSelectorTable(selectorInfo, eventId, readonly=false, savedSelecto
     }
     selector.push('</tbody>');
     selector.push('</table>');
+    // selector.push('</div>');
     return selector.join("");
 }
 
@@ -924,7 +888,8 @@ function createSelectAllLinksRepeatChoices(event_id) {
 function createClickRepeatChoices(event_id) {
     let modal = [];
     modal.push('<div class="form-group">');
-    modal.push('<label for="click_until_' + event_id +'">Click</label>');
+    modal.push('<label for="click_until_' + event_id +'" style="padding-right: 10px;">Click</label>');
+    modal.push('<i class="bi-question-circle" data-toggle="tooltip" data-html="true" data-placement="right" title="' + click_type_helptext + '"></i>');
 
     modal.push('<select class="form-control form-control-sm" id="click_until_' + event_id + '" required>');
     modal.push('<option value="click_until_once_' +event_id+'">Once</option>');
@@ -1833,7 +1798,7 @@ function attachChangeMultiConditionListener(eventId) {
         if ($(this).val() === "element-to-be-clicked") {
 
             if ($("#end_element_to_be_clicked").text() === "") {
-                let button = '<button type="button" class="btn btn-xs btn-info" style="font-size: small; margin: 10px 10px;" ' + 'id="end_element_' + eventId + '">' +
+                let button = '<button type="button" class="btn btn-info" style="margin: 10px 10px;" ' + 'id="end_element_' + eventId + '">' +
                 'Choose element</button>';
 
                 $("#end_element_to_be_clicked").html(button);
@@ -2348,6 +2313,28 @@ let tempNewEvents = {};
  */
 let trace = new Trace();
 
+let type_helptext = `<p style='text-align: left;'>Select action for the crawler to take:</p>
+                    <ul>
+                    <li style='text-align: left;'><strong>Click:</strong> click a single item and wait for futher instructions</li>
+                    <li style='text-align: left;'><strong>Capture group of links:</strong> put all links in the selected area into a queue and click on each link</li>
+                    <li style='text-align: left;'><strong>Hover:</strong> hover over the indicated area</li>
+                    <li style='text-align: left;'><strong>Scroll:</strong> scroll through the indicated area</li>
+                    </ul>`;
+let selector_helptext = `<p style='text-align: left;'>Select <strong>CSS Selector</strong> in most cases, because it is less likely to change, and more 
+                        generalizable across different webpages.</p>
+                        <p style='text-align: left;'>Select <strong>XPath Selector</strong> if the CSS Selector does not accurately select the link you wish to capture.</p>`;
+let click_type_helptext = `<p style='text-align: left;'>Select the type of click the crawler should make:</p>
+                        <ul>
+                        <li style='text-align: left;'><strong>Click Once:</strong> click a single link one time</li>
+                        <li style='text-align: left;'><strong>Click Until:</strong> click a link repeatedly until there are no remaining 
+                        pages with the specified link or it reaches a specified number of clicks</li>
+                        <li style='text-align: left;'><strong>Start a Loop:</strong> initiate a loop to complete an identical set of actions 
+                        on a set of links in the selected area. You can nest those additional actions hierarchically beneth this click element in the main selection window. 
+                        When the crawler completes those actions, it will click on the element specified below <strong>'Navigate back to starting element'</strong>, 
+                        and continue the loop until there are no more links remaining in the initiating loop.</li>
+                        </ul>`;
+let end_condition_helptext = `<p style='text-align: left;'>Select an element that the crawler will click when it completes the actions nested hierarchically beneath a <strong>'Start a Loop'</strong> 
+                        element. The crawler will return to this link and either click on the next specified link in the loop action, or end the loop if there are no further links.</p>`;
 
 /*
  * The main function that starts the extension logic.
