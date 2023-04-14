@@ -1323,10 +1323,8 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     }
     event_ui.push('class="btn btn-outline-primary btn-block ');
     event_ui.push(width_class + '"');
-    event_ui.push('data-toggle="tooltip" title="Click to view more details on this Event" ');
-    event_ui.push('rel="tooltip" data-toggle="modal"');
-    event_ui.push('data-target="#action_modal_' + event.id + '"');
-    event_ui.push('>');
+    event_ui.push('data-toggle="tooltip" title="Click to view more details on this Event" rel="tooltip">');
+    event_ui.push('<span data-toggle="modal" data-target="#action_modal_' + event.id + '" >');
     if (event.repeat.hasOwnProperty("until")) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
@@ -1334,17 +1332,17 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
     if (event.actionName == "click all links in an area"){
-	 event_ui.push('<span class="adjust-line-height fas fa-download float-left"></span>');
+	    event_ui.push('<span class="adjust-line-height fas fa-download float-left"></span>');
     }
-     if (event.actionName == "click" && !event.repeat.hasOwnProperty("until") ){
-	 event_ui.push('<span class="adjust-line-height fas fa-hand-pointer float-left"></span>');
+    if (event.actionName == "click" && !event.repeat.hasOwnProperty("until") ){
+	    event_ui.push('<span class="adjust-line-height fas fa-hand-pointer float-left"></span>');
     }
     
    if (outLink) {
        event_ui.push('<span class="adjust-line-height fas fa-external-link-alt float-left"></span>');
     }
     event_ui.push(event.name);
-    event_ui.push('</button>');
+    event_ui.push('</span></button>');
     if (!insertCopiedTrace) {
         event_ui.push('<button type="button" class="btn btn-default btn-success tracer-bg" data-toggle="tooltip" id="create_event_for_'+event.id+'" title="Create Event"><span class="fas fa-plus-square"></span></button>');
     }
