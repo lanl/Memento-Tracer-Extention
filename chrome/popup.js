@@ -1324,7 +1324,7 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     event_ui.push('class="btn btn-outline-primary btn-block ');
     event_ui.push(width_class + '"');
     event_ui.push('data-toggle="tooltip" title="Click to view more details on this Event" rel="tooltip">');
-    event_ui.push('<span data-toggle="modal" data-target="#action_modal_' + event.id + '" >');
+    event_ui.push('<span style="display:block" data-toggle="modal" data-target="#action_modal_' + event.id + '" >');
     if (event.repeat.hasOwnProperty("until")) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
