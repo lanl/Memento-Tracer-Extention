@@ -1213,11 +1213,11 @@ function editEventNameForm(event) {
     let action_name = (event.name) ? event.name : "";
     modal.push('<input type="text" class="form-control form-control-sm" id="action_name_' + event_id + '" placeholder="Enter optional name for this action" value="' + action_name + '" />');
     modal.push('</div>');
-    modal.push('</div>');
     modal.push('<br/>');
     modal.push('</form>');
+    modal.push('<div class="btn-toolbar justify-content-center">');
     modal.push('<button type="button" class="btn btn-success" id="save_edit_' + event_id + '" data-dismiss="modal">Save</button>');
-    modal.push('</div></div></div>');
+    modal.push('</div></div></div></div></div>');
     return modal.join("");
 }
 
@@ -1322,9 +1322,9 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
         event_ui.push('id="event_' + event.id + '"');
     }
     event_ui.push('class="btn btn-outline-primary btn-block ');
-    event_ui.push(width_class + '"');
+    event_ui.push(width_class + '" style="padding: 0"');
     event_ui.push('data-toggle="tooltip" title="Click to view more details on this Event" rel="tooltip">');
-    event_ui.push('<span style="display:block" data-toggle="modal" data-target="#action_modal_' + event.id + '" >');
+    event_ui.push('<span style="display:block; padding: 0.375rem 0.75rem" data-toggle="modal" data-target="#action_modal_' + event.id + '" >');
     if (event.repeat.hasOwnProperty("until")) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
