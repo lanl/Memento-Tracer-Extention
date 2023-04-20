@@ -483,10 +483,10 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
         modal.push('<option value="action_type_click_'+event_id+'">Click</option>');
     }
     if (action_type === "select_all_links") {
-        modal.push('<option value="action_type_select_all_links_'+event_id+'" selected>Capture Group of Links</option>');
+        modal.push('<option value="action_type_capture_group_of_links_'+event_id+'" selected>Capture Group of Links</option>');
     }
     else {
-        modal.push('<option value="action_type_select_all_links_'+event_id+'">Capture Group of Links</option>');
+        modal.push('<option value="action_type_capture_group_of_links_'+event_id+'">Capture Group of Links</option>');
     }
     if (action_type === "scroll") {
         modal.push('<option value="action_type_scroll_'+event_id+'" selected>Scroll</option>');
@@ -855,7 +855,7 @@ function createRepeatChoices(event) {
         modal.push(createClickRepeatChoices(event_id));
     }
     else if (event.actionName === "select_all_links") {
-        modal.push(createSelectAllLinksRepeatChoices(event_id));
+        modal.push(createCaptureGroupRepeatChoices(event_id));
     }
     else if (event.actionName === "scroll") {
         modal.push(createScrollRepeatChoices(event_id));
@@ -905,12 +905,12 @@ function createScrollRepeatChoices(event_id) {
 /*
  * Creates repeat choices for "Select all links".
  */
-function createSelectAllLinksRepeatChoices(event_id) {
+function createCaptureGroupRepeatChoices(event_id) {
     let modal = [];
     modal.push('<div class="form-group">');
-    modal.push('<label for="select_all_links_until_' + event_id +'">Click</label>');
-    modal.push('<select class="form-control form-control-sm" id="select_all_links_until_' + event_id + '" required>');
-    modal.push('<option value="select_all_links_until_once_' +event_id+'">Once</option>');
+    modal.push('<label for="capture_group_of_links_until_' + event_id +'">Click</label>');
+    modal.push('<select class="form-control form-control-sm" id="capture_group_of_links_until_' + event_id + '" required>');
+    modal.push('<option value="capture_group_of_links_until_once_' +event_id+'">Once</option>');
 
     modal.push('</select>');
 
@@ -1319,7 +1319,7 @@ function updateEventModalUI(event, chosenSelectors) {
        //lb$("#choose_element_"+eventId).attr("disabled", false);
     $("#action_type_"+eventId).attr("disabled", true);
     //$("#click_"+eventId).attr("disabled", true);
-    //$("#select_all_links_until_"+eventId).attr("disabled", true);
+    //$("#capture_group_of_links_until_"+eventId).attr("disabled", true);
     //$("#exit_condition_"+eventId+" :radio:not(:checked)").attr("disabled", true);
     $("#save_"+eventId).attr("disabled", false);
     $("#save_"+eventId).removeClass("d-none");
@@ -1369,7 +1369,7 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
     if (event.actionName == "capture group of links"){
-	 event_ui.push('<span class="adjust-line-height fas fa-download float-left"></span>');
+	 event_ui.push('<span class="adjust-line-height fas fa-object-group float-left"></span>');
     }
      if (event.actionName == "click" && !event.repeat.hasOwnProperty("until") ){
 	 event_ui.push('<span class="adjust-line-height fas fa-hand-pointer float-left"></span>');
@@ -1862,7 +1862,7 @@ function attachActionTypeSelectMenuEvents(event) {
         }
         else if (selected_action === "Capture Group of Links" ) {
             $("#choose_element_"+eventId).show();
-            $("#choose_element_"+eventId).text("Choose Area For Elements to Capture");
+            $("#choose_element_"+eventId).text("Choose Group of Links to Capture");
         }
         else if (selected_action === "Scroll" ) {
             $("#choose_element_"+eventId).hide();
@@ -1889,7 +1889,7 @@ function attachActionTypeSelectMenuEvents(event) {
         else if (selected_action === "Capture Group of Links"
             && $("#choose_element_"+eventId).is(":disabled")) {
 
-            let repeat_choices = createSelectAllLinksRepeatChoices(eventId);
+            let repeat_choices = createCaptureGroupRepeatChoices(eventId);
             $("#exit_condition_" + eventId).empty();
             $("#repeat_choices_" + eventId).html(repeat_choices);
         }
