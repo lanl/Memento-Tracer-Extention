@@ -538,7 +538,7 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
  */
 function createClickLoopCondition(event_id, asStr=true) {
     let modal = [];
-    modal.push('<div class="header">End Condition</div>');
+    modal.push('<div class="header">Navigate Back to Starting Element</div>');
     modal.push('<div class="form-group">');
 
     modal.push('<div class="row">');
