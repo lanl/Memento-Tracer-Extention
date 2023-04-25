@@ -484,10 +484,10 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
         modal.push('<option value="action_type_click_'+event_id+'">Click</option>');
     }
     if (action_type === "select_all_links") {
-        modal.push('<option value="action_type_select_all_links_'+event_id+'" selected>Click All Links in an Area</option>');
+        modal.push('<option value="action_type_capture_group_of_links_'+event_id+'" selected>Capture Group of Links</option>');
     }
     else {
-        modal.push('<option value="action_type_select_all_links_'+event_id+'">Click All Links in an Area</option>');
+        modal.push('<option value="action_type_capture_group_of_links_'+event_id+'">Capture Group of Links</option>');
     }
     if (action_type === "scroll") {
         modal.push('<option value="action_type_scroll_'+event_id+'" selected>Scroll</option>');
@@ -530,26 +530,27 @@ function createEventTypeChoices(event_id, action_type, asStr=true) {
 
 /*
  * ---------------------------------------------------------------------------------------
- * UI for Multi Conditions
+ * UI for Loop Conditions
  * ---------------------------------------------------------------------------------------
  */
 /*
  * Creates html to list the exit conditions when the
  * recursive click option is chosen.
  */
-function createClickMultiCondition(event_id, asStr=true) {
+function createClickLoopCondition(event_id, asStr=true) {
     let modal = [];
+    modal.push('<div class="header">Navigate Back to Starting Element</div>');
     modal.push('<div class="form-group">');
     modal.push('<label style="padding-right: 10px;">End Condition</label>');
     modal.push('<i class="bi-question-circle" data-toggle="tooltip" data-html="true" data-placement="right" title="' + end_condition_helptext + '"></i>');
 
     modal.push('<div class="row">');
     modal.push('<div class="col">');
-    modal.push('<div id="multiclick_selector">');
+    modal.push('<div id="loopclick_selector">');
     modal.push('<div class="input-group">');
     modal.push('<div class="input-group-prepend">');
     modal.push('<div class="input-group-text">');
-    modal.push('<input type="radio" value="element-to-be-clicked" name="multi_condition_' + event_id + '" checked />');
+    modal.push('<input type="radio" value="element-to-be-clicked" name="loop_condition_' + event_id + '" checked />');
     modal.push('</div>');
     modal.push('</div>');
     modal.push('<span class="form-control form-control-sm">Select Element to be Clicked</span>');
@@ -572,7 +573,7 @@ function createClickMultiCondition(event_id, asStr=true) {
     modal.push('<div class="input-group">');
     modal.push('<div class="input-group-prepend">');
     modal.push('<div class="input-group-text">');
-    modal.push('<input type="radio" value="click-back-button" name="multi_condition_' + event_id + '" />');
+    modal.push('<input type="radio" value="click-back-button" name="loop_condition_' + event_id + '" />');
     modal.push('</div>');
     modal.push('</div>');
     modal.push('<span class="form-control form-control-sm">Click Browser Back Button</span>');
@@ -819,7 +820,7 @@ function createRepeatChoices(event) {
         modal.push(createClickRepeatChoices(event_id));
     }
     else if (event.actionName === "select_all_links") {
-        modal.push(createSelectAllLinksRepeatChoices(event_id));
+        modal.push(createCaptureGroupRepeatChoices(event_id));
     }
     else if (event.actionName === "scroll") {
         modal.push(createScrollRepeatChoices(event_id));
@@ -869,12 +870,12 @@ function createScrollRepeatChoices(event_id) {
 /*
  * Creates repeat choices for "Select all links".
  */
-function createSelectAllLinksRepeatChoices(event_id) {
+function createCaptureGroupRepeatChoices(event_id) {
     let modal = [];
     modal.push('<div class="form-group">');
-    modal.push('<label for="select_all_links_until_' + event_id +'">Click</label>');
-    modal.push('<select class="form-control form-control-sm" id="select_all_links_until_' + event_id + '" required>');
-    modal.push('<option value="select_all_links_until_once_' +event_id+'">Once</option>');
+    modal.push('<label for="capture_group_of_links_until_' + event_id +'">Click</label>');
+    modal.push('<select class="form-control form-control-sm" id="capture_group_of_links_until_' + event_id + '" required>');
+    modal.push('<option value="capture_group_of_links_until_once_' +event_id+'">Once</option>');
 
     modal.push('</select>');
 
@@ -888,15 +889,14 @@ function createSelectAllLinksRepeatChoices(event_id) {
 function createClickRepeatChoices(event_id) {
     let modal = [];
     modal.push('<div class="form-group">');
-    modal.push('<label for="click_until_' + event_id +'" style="padding-right: 10px;">Click</label>');
+    modal.push('<label for="click_' + event_id +'" style="padding-right: 10px;">Click Type</label>');
     modal.push('<i class="bi-question-circle" data-toggle="tooltip" data-html="true" data-placement="right" title="' + click_type_helptext + '"></i>');
+    modal.push('<select class="form-control form-control-sm" id="click_' + event_id + '" required>');
+    modal.push('<option value="click_once_' +event_id+'">Click Once</option>');
 
-    modal.push('<select class="form-control form-control-sm" id="click_until_' + event_id + '" required>');
-    modal.push('<option value="click_until_once_' +event_id+'">Once</option>');
+    modal.push('<option value="click_until_'+event_id+'">Click Until</option>');
 
-    modal.push('<option value="click_until_repeated_'+event_id+'">Until</option>');
-
-    modal.push('<option value="click_multi_repeated_'+event_id+'">Multi</option>');
+    modal.push('<option value="click_loop_'+event_id+'">Start a Loop</option>');
 
     modal.push('</select>');
 
@@ -1283,8 +1283,8 @@ function updateEventModalUI(event, chosenSelectors) {
     $("#choose_element_"+eventId).attr("disabled", true);
        //lb$("#choose_element_"+eventId).attr("disabled", false);
     $("#action_type_"+eventId).attr("disabled", true);
-    //$("#click_until_"+eventId).attr("disabled", true);
-    //$("#select_all_links_until_"+eventId).attr("disabled", true);
+    //$("#click_"+eventId).attr("disabled", true);
+    //$("#capture_group_of_links_until_"+eventId).attr("disabled", true);
     //$("#exit_condition_"+eventId+" :radio:not(:checked)").attr("disabled", true);
     $("#save_"+eventId).attr("disabled", false);
     $("#save_"+eventId).removeClass("d-none");
@@ -1331,8 +1331,8 @@ function createEventButtons(event, width_class, insertCopiedTrace, outLink) {
     if (event.repeat.hasOwnProperty("along_with")) {
         event_ui.push('<span class="adjust-line-height fas fa-retweet float-left"></span>');
     }
-    if (event.actionName == "click all links in an area"){
-	    event_ui.push('<span class="adjust-line-height fas fa-download float-left"></span>');
+    if (event.actionName == "capture group of links"){
+	 event_ui.push('<span class="adjust-line-height fas fa-object-group float-left"></span>');
     }
     if (event.actionName == "click" && !event.repeat.hasOwnProperty("until") ){
 	    event_ui.push('<span class="adjust-line-height fas fa-hand-pointer float-left"></span>');
@@ -1553,7 +1553,7 @@ function attachSaveEditListener(event) {
     $("#save_edit_" + event.id).on("click", function() {
         console.log("Save button clicked");
         if (event.default_name_set === true) {
-	        if (event.actionName==='click all links in an area'){
+	        if (event.actionName==='capture group of links'){
 		        eventName = $("#action_name_"+event.id).val()
             } else {
                 eventName = $("#action_name_"+event.id).val() + " (" + event.actionName + ")"; }
@@ -1611,7 +1611,7 @@ function attachSaveEventListener(eventId) {
         let eventName = "";
 
         if (currentEvent.default_name_set === true) {
-	        if (currentEvent.actionName==='click all links in an area'){
+	        if (currentEvent.actionName==='capture group of links'){
 		        eventName = $("#action_name_"+eventId).val()
             } else {
                 eventName = $("#action_name_"+eventId).val() + " (" + currentEvent.actionName + ")"; }
@@ -1636,7 +1636,7 @@ function attachSaveEventListener(eventId) {
             selected_action = $("#scroll_until_" + eventId + " :selected").text();
         }
         else {
-            selected_action = $("#click_until_" + eventId + " :selected").text();
+            selected_action = $("#click_" + eventId + " :selected").text();
         }
         if (selected_action === "Until") {
             let exit_cond = $("input[name=exit_condition_"+eventId+"]:checked").val();
@@ -1687,8 +1687,8 @@ function attachSaveEventListener(eventId) {
             currentEvent.repeat = {};
             currentEvent.repeat.until = until;
         }
-        else if (selected_action == "Multi") {
-            let exit_cond = $("input[name=multi_condition_"+eventId+"]:checked").val();
+        else if (selected_action == "Start a Loop") {
+            let exit_cond = $("input[name=loop_condition_"+eventId+"]:checked").val();
             let along_with = {};
             along_with.exit_cond = exit_cond;
 
@@ -1790,8 +1790,8 @@ function attachChangeExitConditionListener(eventId) {
  * When this option is chosen by the user, this handler will create
  * a button to let the user choose the element.
  */
-function attachChangeMultiConditionListener(eventId) {
-    $("input[name=multi_condition_"+eventId+"]").change( function() {
+function attachChangeLoopConditionListener(eventId) {
+    $("input[name=loop_condition_"+eventId+"]").change( function() {
 
         if ($(this).val() === "element-to-be-clicked") {
 
@@ -1824,9 +1824,9 @@ function attachActionTypeSelectMenuEvents(event) {
             $("#choose_element_"+eventId).show();
             $("#choose_element_"+eventId).text("Choose Element to Click");
         }
-        else if (selected_action === "Click All Links in an Area" ) {
+        else if (selected_action === "Capture Group of Links" ) {
             $("#choose_element_"+eventId).show();
-            $("#choose_element_"+eventId).text("Choose Area For Elements to Click");
+            $("#choose_element_"+eventId).text("Choose Group of Links to Capture");
         }
         else if (selected_action === "Scroll" ) {
             $("#choose_element_"+eventId).hide();
@@ -1850,10 +1850,10 @@ function attachActionTypeSelectMenuEvents(event) {
             attachClickUntilExitConditions(eventId);
             
         }
-        else if (selected_action === "Click All Links in an Area"
+        else if (selected_action === "Capture Group of Links"
             && $("#choose_element_"+eventId).is(":disabled")) {
 
-            let repeat_choices = createSelectAllLinksRepeatChoices(eventId);
+            let repeat_choices = createCaptureGroupRepeatChoices(eventId);
             $("#exit_condition_" + eventId).empty();
             $("#repeat_choices_" + eventId).html(repeat_choices);
         }
@@ -1870,19 +1870,19 @@ function attachActionTypeSelectMenuEvents(event) {
  * UI sections appropriately.
  */
 function attachClickUntilExitConditions(eventId) {
-    $("#click_until_" + eventId).on("change", function() {
-        let selected_action = $("#click_until_" + eventId + " :selected").text();
+    $("#click_" + eventId).on("change", function() {
+        let selected_action = $("#click_" + eventId + " :selected").text();
         if (selected_action === "Until") {
             let exit_condition = createClickExitCondition(eventId);
             $("#exit_condition_" + eventId).html(exit_condition);
             attachChangeExitConditionListener(eventId);
             attachChooseTotalPagesEventListener(eventId);
         }
-        else if (selected_action === "Multi") {
-            console.log("Multi was clicked!");
-            let exit_condition = createClickMultiCondition(eventId);
+        else if (selected_action === "Start a Loop") {
+            console.log("Start a Loop was clicked!");
+            let exit_condition = createClickLoopCondition(eventId);
             $("#exit_condition_" + eventId).html(exit_condition);
-            attachChangeMultiConditionListener(eventId);
+            attachChangeLoopConditionListener(eventId);
             attachEndClickEventListener(eventId);
         }
         else if (selected_action === "Once") {
@@ -1918,7 +1918,7 @@ function attachChooseTotalPagesEventListener(eventId) {
 /*
  * Activates click recording for the user when the user
  * clicks on the button to select an element that matches the
- * end click as part of the Multi type of Click.
+ * end click as part of the 'Start a Loop' type of Click.
  *
  * The extension cannot talk to the loaded HTML page directly,
  * hence this method will send a message to "recorder.js" which
@@ -1957,7 +1957,7 @@ function attachChooseElementEventListener(eventId) {
         if (event_type === "Click") {
             message["attachRecorder"] = [["click", "mouseover"], eventId, "click"];
         }
-        else if (event_type === "Click All Links in an Area") {
+        else if (event_type === "Capture Group of Links") {
             message["attachRecorder"] = [["click", "mouseover"], eventId, "select_all_links"];
         }
         else if (event_type === "Hover") {
