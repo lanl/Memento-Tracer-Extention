@@ -1872,7 +1872,8 @@ function attachActionTypeSelectMenuEvents(event) {
 function attachClickUntilExitConditions(eventId) {
     $("#click_" + eventId).on("change", function() {
         let selected_action = $("#click_" + eventId + " :selected").text();
-        if (selected_action === "Until") {
+        console.log(selected_action);
+        if (selected_action === "Click Until") {
             let exit_condition = createClickExitCondition(eventId);
             $("#exit_condition_" + eventId).html(exit_condition);
             attachChangeExitConditionListener(eventId);
@@ -1885,7 +1886,7 @@ function attachClickUntilExitConditions(eventId) {
             attachChangeLoopConditionListener(eventId);
             attachEndClickEventListener(eventId);
         }
-        else if (selected_action === "Once") {
+        else if (selected_action === "Click Once") {
             $("#exit_condition_" + eventId).empty();
         }
     });
