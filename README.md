@@ -20,7 +20,7 @@ This extension currently supports Chrome Browser only. This code can be repurpos
 easily with minimum changes. Please refer to this 
 [Porting a Chrome Extension to Firefox document](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Porting_a_Google_Chrome_extension).
 
-We have documented a discussion of issues to be discussed and resolved in [a Google Document](https://docs.google.com/document/d/1gFxNeuK7BSJLm56Vt9RH4yw90YMK55IkSpIKb0FCMSI/edit?usp=sharing).
+
 
 # Development
 
