@@ -3,8 +3,17 @@ Memento Tracer Extension
 About
 =====
 
-The Memento Tracer Extension records a user’s interactions with a web page . The extension captures these interactions and saves them as a JSON file–essentially, a set of instructions or a template for the web crawler. This set of instructions can then be used to crawl websites with identical formatting. These JSON files are useful for websites like GitHub or SlideShare, where a user wants to make sure certain elements on nearly-identical pages are captured each time. It’s kind of a middle ground between a largely automated web crawler like the Internet Archive’s tools and the more manual web-crawling tool Webrecorder.
+The Memento Tracer Extension records a user’s interactions with a web page. The extension captures these interactions and saves them as a JSON file–essentially (Trace), a set of instructions or a template for the web crawler. This set of instructions can then be used to crawl websites with identical formatting, the crawler software can be found at ( https://github.com/lanl/trace-crawler). These JSON files or Traces are useful for websites like GitHub or SlideShare, where a user wants to make sure certain elements on nearly-identical pages are captured each time. It’s kind of a middle ground between a largely automated web crawler like the Internet Archive’s tools and the more manual web-crawling tool Webrecorder. 
 
+# Install
+============
+To install the extension in the Chrome Browser:
+
+* Clone this repo.
+* Open the chrome extensions tab: chrome://extensions/, and enable "Developer mode" at the top right corner.
+* Click "Load unpacked extension" button from the extension page, and navigate to the cloned repository and open the folder named `chrome`.
+* The extension should now be installed and it can be opened by clicking on the Tracer icon next to the browser's address bar.
+  
 How it works
 ============
 
@@ -161,3 +170,16 @@ Shallow Hierarchy
 -----------------
 
 The crawler tends to have trouble going deep into hierarchical page structures–the more possible places on a page where it can click, the more opportunities it has to get stuck. If there are multiple areas of a single site you wish to crawl (for example, the “issues” section of a GitHub page and all open issues, as well as the “pulls” section of a GitHub page and all open pulls), it’s preferable to make a top-level event for each separately. If you wish to archive content that is relatively deep on a webpage (ie you have to click through a number of pages to get to the content you wish to crawl), it might be best to start a trace farther down in the hierarchy of the site (eg. start a trace on a page called “home/issues/all/open” instead of starting the trace at home and navigating down using the tracer) or to select a different web crawling tool.
+
+License
+-----------------
+#LANL c number C22055
+© 2022. Triad National Security, LLC. All rights reserved.
+This program was produced under U.S. Government contract 89233218CNA000001 for Los Alamos
+National Laboratory (LANL), which is operated by Triad National Security, LLC for the U.S.
+Department of Energy/National Nuclear Security Administration. All rights in the program are
+reserved by Triad National Security, LLC, and the U.S. Department of Energy/National Nuclear
+Security Administration. The Government is granted for itself and others acting on its behalf a
+nonexclusive, paid-up, irrevocable worldwide license in this material to reproduce, prepare
+derivative works, distribute copies to the public, perform publicly and display publicly, and to permit
+others to do so.
