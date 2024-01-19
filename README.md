@@ -60,7 +60,7 @@ Clicking the red delete button deletes an event and all events hierarchically be
 Types of Clicks
 ---------------
 
-There are 4 types of events: Click, Click All, Hover, and Scroll.
+There are 4 types of events: Click, Capture Group of Links, Hover, and Scroll.
 
 1\. Click
 
@@ -94,23 +94,23 @@ Click Until will continue to click on and crawl a selector until it reaches the 
 
 ![](images/image12.png)
 
-3\. Click Multi
+3\. Start a Loop
 
-Click Multi allows a user to create a loop. In addition to choosing a selector (or set of selectors) to click initially, you pick a selector called “Return condition” that the crawler should click once it has completed the set of steps. It’s a little hard to understand so here’s an example:
+Start a Loop allows a user to create a loop. In addition to choosing a selector (or set of selectors) to click initially, you pick a selector called “Exit condition” that the crawler should click once it has completed the set of steps. It’s a little hard to understand so here’s an example:
 
 ![](images/image13.png)
 
 This screenshot shows a platform with an issues tab in the left hand sidebar, and two separate tabs for open and closed issues. Perhaps you want to click the open issues tab, click all the issues under that tab–and, in addition, click “next” through the pagination for all open issues. Then, you want to click the “closed” issues tab, and repeat the same set of actions.
 
-There is a CSSSelector that includes both the Open and the Closed tabs. Choose this as the CSSSelector, and then pick the “Issues” tab as the sidebar as the Return condition–completing all the tasks and then returning to the main Issues page would represent the closing of the loop.
+There is a CSSSelector that includes both the Open and the Closed tabs. Choose this as the CSSSelector, and then pick the “Issues” tab as the sidebar as the Exit condition–completing all the tasks and then returning to the main Issues page would represent the closing of the loop.
 
 Then, add the steps you’d like the crawler to take on both the open and closed tabs–clicking the next button until there are no more pages, and downloading all links on the page.
 
 The crawler should now do all these steps in a loop: Open>Download all>Next (until there are no more pages)>back to Issues>Close>Download all>Next (until there are no more pages)>back to Issues
 
-4\. Click All
+4\. Capture Group of Links
 
-The Click All button will download all links in an area simultaneously. This is different from “Click” because Click All will grab everything in an area at once.
+The Capture Group of Links button will download all links in an area simultaneously. This is different from “Click” because Capture Group of Links will grab everything in an area at once, rather than sequentially.
 
 Multiple Selectors In the Same Area
 -----------------------------------
