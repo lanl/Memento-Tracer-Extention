@@ -137,9 +137,11 @@ There’s no easy way to tell which CSS Selector will yield the desired result, 
 
 Hover
 -----
+The Hover action is designed to allow the crawler to click on an item that is only accessible via a hover tag or menu. This feature is experimental and has not been fully tested.
 
 Scroll
 ------
+The Scroll action is intended to allow the use of the crawler on a website with infinite scroll. For example, a user could start a loop where they scroll on a page, click a link, return to the scroll, click another link, and so on. This feature is experimental and has not been fully tested.
 
 Completing a Trace
 ------------------
